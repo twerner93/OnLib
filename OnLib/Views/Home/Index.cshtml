@@ -1,0 +1,18 @@
+﻿@model IEnumerable<OnLib.Models.Titel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@foreach (var item in Model)
+{
+    <h4>@item.Name</h4>
+    if (!String.IsNullOrEmpty(item.Autor.Vorname))
+    {
+        <div>@item.Autor.Nachname, @item.Autor.Vorname</div>
+    }
+    else 
+    { 
+        <div>@item.Autor.Nachname</div>
+    }
+}

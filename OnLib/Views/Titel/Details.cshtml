@@ -1,0 +1,69 @@
+﻿@model OnLib.Models.Titel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Titel</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Autor.Nachname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Autor.Nachname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kurzbeschreibung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kurzbeschreibung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Beschreibung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Beschreibung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Erscheinung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Erscheinung)
+        </dd>
+
+    </dl>
+</div>
+<div>@* Liste der Kopien *@
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TitelId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

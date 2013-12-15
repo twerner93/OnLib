@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Diese Datei wird vom Veröffentlichungs-/Packvorgang Ihres Webprojekts verwendet. Sie können das Verhalten dieses Vorgangs anpassen,
+indem Sie diese MSBuild-Datei bearbeiten. Besuchen Sie "http://go.microsoft.com/fwlink/?LinkID=208121", um weitere Informationen zu erhalten. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>c:\www\OnLib\</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>11/27/2013 10:24:51</publishTime>
+    </File>
+    <File Include="bin/de/EntityFramework.resources.dll">
+      <publishTime>11/27/2013 10:25:10</publishTime>
+    </File>
+    <File Include="bin/de/EntityFramework.SqlServer.resources.dll">
+      <publishTime>11/27/2013 10:25:10</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.AspNet.Identity.Core.resources.dll">
+      <publishTime>11/27/2013 10:25:11</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.AspNet.Identity.EntityFramework.resources.dll">
+      <publishTime>11/27/2013 10:25:11</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.AspNet.Identity.Owin.resources.dll">
+      <publishTime>11/27/2013 10:25:11</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.Host.SystemWeb.resources.dll">
+      <publishTime>11/27/2013 10:25:12</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.resources.dll">
+      <publishTime>11/27/2013 10:25:12</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.Security.Facebook.resources.dll">
+      <publishTime>11/27/2013 10:25:12</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.Security.Google.resources.dll">
+      <publishTime>11/27/2013 10:25:13</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.Security.MicrosoftAccount.resources.dll">
+      <publishTime>11/27/2013 10:25:13</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.Security.resources.dll">
+      <publishTime>11/27/2013 10:25:12</publishTime>
+    </File>
+    <File Include="bin/de/Microsoft.Owin.Security.Twitter.resources.dll">
+      <publishTime>11/27/2013 10:25:13</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.Helpers.resources.dll">
+      <publishTime>11/27/2013 10:24:53</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.Mvc.resources.dll">
+      <publishTime>11/27/2013 10:24:53</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.Optimization.resources.dll">
+      <publishTime>11/27/2013 10:24:54</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.Razor.resources.dll">
+      <publishTime>11/27/2013 10:24:52</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.WebPages.Deployment.resources.dll">
+      <publishTime>11/27/2013 10:24:53</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.WebPages.Razor.resources.dll">
+      <publishTime>11/27/2013 10:24:53</publishTime>
+    </File>
+    <File Include="bin/de/System.Web.WebPages.resources.dll">
+      <publishTime>11/27/2013 10:24:53</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>11/27/2013 10:24:58</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>11/27/2013 10:24:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>11/27/2013 10:25:04</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>11/27/2013 10:25:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>11/27/2013 10:25:05</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>11/27/2013 10:25:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>11/27/2013 10:25:06</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>11/27/2013 10:25:07</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>11/27/2013 10:25:07</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>11/27/2013 10:25:07</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>11/27/2013 10:25:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>11/27/2013 10:25:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>11/27/2013 10:25:07</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>11/27/2013 10:25:08</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>11/27/2013 10:24:48</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/27/2013 10:24:50</publishTime>
+    </File>
+    <File Include="bin/OnLib.dll">
+      <publishTime>12/09/2013 09:41:22</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/27/2013 10:25:05</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>11/27/2013 10:24:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>11/27/2013 10:24:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>11/27/2013 10:24:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>11/27/2013 10:24:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>11/27/2013 10:24:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>11/27/2013 10:24:48</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>11/27/2013 10:24:48</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>11/27/2013 10:24:51</publishTime>
+    </File>
+    <File Include="ClassDiagram1.cd">
+      <publishTime>11/30/2013 18:43:03</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>11/27/2013 10:24:56</publishTime>
+    </File>
+    <File Include="DataClasses1.dbml">
+      <publishTime>12/01/2013 12:13:51</publishTime>
+    </File>
+    <File Include="DataClasses1.dbml.layout">
+      <publishTime>12/01/2013 12:13:52</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>11/27/2013 10:24:21</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/27/2013 10:24:21</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>11/27/2013 10:25:13</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>11/27/2013 10:24:36</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>11/27/2013 10:24:35</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>11/27/2013 10:24:37</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>11/27/2013 10:24:37</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>11/27/2013 10:24:37</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>11/27/2013 10:25:09</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>11/27/2013 10:25:09</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>11/27/2013 10:25:09</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>11/27/2013 10:25:09</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>11/27/2013 10:24:49</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>11/27/2013 10:24:52</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>11/27/2013 10:24:52</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>11/30/2013 17:59:38</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Account/Manage.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>11/27/2013 11:51:02</publishTime>
+    </File>
+    <File Include="Views/Account/_ChangePasswordPartial.cshtml">
+      <publishTime>11/27/2013 10:24:56</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Account/_RemoveAccountPartial.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Account/_SetPasswordPartial.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>11/27/2013 10:24:21</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>11/27/2013 10:24:21</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>11/27/2013 10:43:11</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>11/27/2013 10:24:56</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>12/09/2013 09:38:05</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>11/27/2013 10:24:57</publishTime>
+    </File>
+    <File Include="Views/Titel/Create.cshtml">
+      <publishTime>11/30/2013 17:54:24</publishTime>
+    </File>
+    <File Include="Views/Titel/Delete.cshtml">
+      <publishTime>11/27/2013 10:45:38</publishTime>
+    </File>
+    <File Include="Views/Titel/Details.cshtml">
+      <publishTime>12/02/2013 13:45:49</publishTime>
+    </File>
+    <File Include="Views/Titel/Edit.cshtml">
+      <publishTime>12/02/2013 13:09:03</publishTime>
+    </File>
+    <File Include="Views/Titel/Index.cshtml">
+      <publishTime>12/02/2013 13:10:32</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>11/27/2013 10:24:21</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>11/27/2013 10:24:21</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>11/29/2013 10:24:24</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
