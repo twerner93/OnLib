@@ -59,6 +59,10 @@ namespace OnLib.Models
         [Display(Name = "Kennwort bestätigen")]
         [Compare("Password", ErrorMessage = "Das Kennwort stimmt nicht mit dem Bestätigungskennwort überein.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage="Keine gültige E-Mail")]
+        [Display(Name="E-Mail")]
         public string Email { get; set; }
 
     }
