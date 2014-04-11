@@ -8,6 +8,10 @@ namespace OnLib.Models
     public class ApplicationUser : IdentityUser
     {
         public string Email { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public DateTime Geburtstag { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
