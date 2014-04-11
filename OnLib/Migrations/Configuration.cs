@@ -1,6 +1,5 @@
 namespace OnLib.Migrations
 {
-    using OnLib.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -10,7 +9,7 @@ namespace OnLib.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(OnLib.Models.ApplicationDbContext context)
@@ -27,20 +26,6 @@ namespace OnLib.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            context.Autors.AddOrUpdate(
-                a => a.Nachname,
-                new Autor { Nachname = "Green Day" },
-                new Autor { Nachname = "Linkin Park"}
-            );
-
-            context.Genres.AddOrUpdate(
-                g => g.Name,
-                new Genre { Name = "Rock" },
-                new Genre { Name = "Punk-Rock" },
-                new Genre { Name = "Pop" }
-            );
-
         }
     }
 }
