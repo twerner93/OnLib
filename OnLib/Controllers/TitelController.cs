@@ -49,7 +49,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
+        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,Name,Typ,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="TitelId,AutorId,Name,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
+        public ActionResult Edit([Bind(Include="TitelId,AutorId,Name,Typ,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
         {
             if (ModelState.IsValid)
             {

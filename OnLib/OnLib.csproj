@@ -232,6 +232,7 @@
     <Content Include="Views\Titel\Details.cshtml" />
     <Content Include="Views\Titel\Edit.cshtml" />
     <Content Include="Views\Titel\Index.cshtml" />
+    <Content Include="Views\Account\_ChangeUserDataPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

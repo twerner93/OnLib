@@ -12,6 +12,7 @@ namespace OnLib.Models
         public int AutorId { get; set; }
         public int GenreId { get; set; }
         public string Name { get; set; }
+        public string Typ { get; set; }
         public string Kurzbeschreibung { get; set; }
         public string Beschreibung { get; set; }
         public DateTime Erscheinung { get; set; }

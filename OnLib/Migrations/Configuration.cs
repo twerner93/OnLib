@@ -9,7 +9,7 @@ namespace OnLib.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(OnLib.Models.ApplicationDbContext context)
