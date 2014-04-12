@@ -118,7 +118,7 @@ indem Sie diese MSBuild-Datei bearbeiten. Besuchen Sie "http://go.microsoft.com/
       <publishTime>04/11/2014 15:34:10</publishTime>
     </File>
     <File Include="bin/OnLib.dll">
-      <publishTime>04/11/2014 15:47:48</publishTime>
+      <publishTime>04/11/2014 17:36:23</publishTime>
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>04/11/2014 15:34:10</publishTime>
@@ -235,13 +235,16 @@ indem Sie diese MSBuild-Datei bearbeiten. Besuchen Sie "http://go.microsoft.com/
       <publishTime>04/11/2014 15:34:04</publishTime>
     </File>
     <File Include="Views/Account/Manage.cshtml">
-      <publishTime>04/11/2014 15:34:04</publishTime>
+      <publishTime>04/11/2014 15:49:35</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>04/11/2014 15:34:04</publishTime>
     </File>
     <File Include="Views/Account/_ChangePasswordPartial.cshtml">
-      <publishTime>04/11/2014 15:34:04</publishTime>
+      <publishTime>04/11/2014 15:55:21</publishTime>
+    </File>
+    <File Include="Views/Account/_ChangeUserDataPartial.cshtml">
+      <publishTime>04/11/2014 15:50:33</publishTime>
     </File>
     <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
       <publishTime>04/11/2014 15:34:04</publishTime>
@@ -271,19 +274,19 @@ indem Sie diese MSBuild-Datei bearbeiten. Besuchen Sie "http://go.microsoft.com/
       <publishTime>04/11/2014 15:34:04</publishTime>
     </File>
     <File Include="Views/Titel/Create.cshtml">
-      <publishTime>04/11/2014 15:34:04</publishTime>
+      <publishTime>04/11/2014 16:39:07</publishTime>
     </File>
     <File Include="Views/Titel/Delete.cshtml">
       <publishTime>04/11/2014 15:34:04</publishTime>
     </File>
     <File Include="Views/Titel/Details.cshtml">
-      <publishTime>04/11/2014 15:34:04</publishTime>
+      <publishTime>04/11/2014 16:37:32</publishTime>
     </File>
     <File Include="Views/Titel/Edit.cshtml">
       <publishTime>04/11/2014 15:34:04</publishTime>
     </File>
     <File Include="Views/Titel/Index.cshtml">
-      <publishTime>04/11/2014 15:34:04</publishTime>
+      <publishTime>04/11/2014 16:47:37</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/11/2014 15:34:04</publishTime>
