@@ -1,5 +1,6 @@
 namespace OnLib.Migrations
 {
+    using OnLib.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,18 @@ namespace OnLib.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Typs.AddOrUpdate(
+                t => t.Name,
+                new Typ { Name = "Album"},
+                new Typ { Name = "Buch"},
+                new Typ { Name = "Film"},
+                new Typ { Name = "Serie"}
+            );
+
+            context.Genres.AddOrUpdate(
+                new Genre { Name = "TestGenre"}
+            );
         }
     }
 }

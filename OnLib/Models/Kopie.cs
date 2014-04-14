@@ -15,6 +15,6 @@ namespace OnLib.Models
         public string Qualitaet { get; set; }
 
         public virtual Titel Titel { get; set; }
-        public virtual ApplicationUser Benutzer { get; set; }
+        //public virtual ApplicationUser Benutzer { get; set; }
     }
 }
