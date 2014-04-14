@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.TitelId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AutorId, "AutorId", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AutorId, "Autor", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("AutorId", String.Empty)
                 @Html.ValidationMessageFor(model => model.AutorId)
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TypId, "TypId", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TypId, "Typ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TypId", String.Empty)
                 @Html.ValidationMessageFor(model => model.TypId)
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GenreId, "GenreId", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GenreId, "Genre", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("GenreId", String.Empty)
                 @Html.ValidationMessageFor(model => model.GenreId)
