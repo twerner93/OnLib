@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Typ)
+            @Html.DisplayNameFor(model => model.Typ.Name)
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.Beschreibung)
@@ -43,7 +43,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Typ)
+            @Html.DisplayFor(modelItem => item.Typ.Name)
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.Beschreibung)

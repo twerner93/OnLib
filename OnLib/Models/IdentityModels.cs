@@ -24,6 +24,7 @@ namespace OnLib.Models
         public DbSet<Autor> Autors { get; set; }
         public DbSet<Titel> Titels { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Typ> Typs { get; set; }
         public DbSet<Kopie> Kopies { get; set; }
     }
 }
