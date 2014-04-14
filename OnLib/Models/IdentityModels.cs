@@ -8,6 +8,10 @@ namespace OnLib.Models
     public class ApplicationUser : IdentityUser
     {
         public string Email { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public DateTime Geburtstag { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -20,6 +24,7 @@ namespace OnLib.Models
         public DbSet<Autor> Autors { get; set; }
         public DbSet<Titel> Titels { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Typ> Typs { get; set; }
         public DbSet<Kopie> Kopies { get; set; }
     }
 }

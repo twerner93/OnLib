@@ -17,7 +17,7 @@ namespace OnLib.Controllers
         // GET: /Titel/
         public ActionResult Index()
         {
-            var titels = db.Titels.Include(t => t.Autor);
+            var titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ);
             return View(titels.ToList());
         }
 
@@ -40,7 +40,8 @@ namespace OnLib.Controllers
         public ActionResult Create()
         {
             ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname");
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name"); 
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
+        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
         {
             if (ModelState.IsValid)
             {
@@ -60,6 +61,7 @@ namespace OnLib.Controllers
 
             ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
             return View(titel);
         }
 
@@ -77,6 +79,7 @@ namespace OnLib.Controllers
             }
             ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
             return View(titel);
         }
 
@@ -85,7 +88,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="TitelId,AutorId,Name,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
+        public ActionResult Edit([Bind(Include="TitelId,AutorId,TypId,Name,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
         {
             if (ModelState.IsValid)
             {
@@ -95,6 +98,7 @@ namespace OnLib.Controllers
             }
             ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
             return View(titel);
         }
 

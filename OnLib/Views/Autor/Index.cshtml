@@ -1,0 +1,45 @@
+﻿@model IEnumerable<OnLib.Models.Autor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sonstiges)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nachname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vorname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sonstiges)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AutorId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AutorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AutorId })
+        </td>
+    </tr>
+}
+
+</table>

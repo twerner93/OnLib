@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnLib.Models
 {
@@ -65,5 +66,19 @@ namespace OnLib.Models
         [Display(Name="E-Mail")]
         public string Email { get; set; }
 
+        [Required]
+        [DataType(DataType.Text, ErrorMessage="Vorname ist erforderlich. ")]
+        [Display(Name="Vorname")]
+        public string Vorname { get; set; }
+
+        [Required]
+        [DataType(DataType.Text, ErrorMessage = "Nachname ist erforderlich. ")]
+        [Display(Name = "Nachname")]
+        public string Nachname { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime, ErrorMessage="Kein gültiges Datum.")]
+        [Display(Name="Geburtstag")]
+        public DateTime Geburtstag { get; set; }
     }
 }
