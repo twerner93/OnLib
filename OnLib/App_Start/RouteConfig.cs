@@ -18,6 +18,12 @@ namespace OnLib
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ByTyp",
+                url: "{controller}/{action}/{typ}",
+                defaults: new { controller = "Titel", action = "Index" }
+            );
         }
     }
 }

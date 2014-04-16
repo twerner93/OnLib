@@ -18,7 +18,47 @@ namespace OnLib.Controllers
         public ActionResult Index()
         {
             var titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ);
-            return View(titels.ToList());
+            List<TitelViewModel> titelviews = new List<TitelViewModel>();
+            foreach (Titel item in titels)
+            {
+                TitelViewModel tvm = new TitelViewModel
+                {
+                    TitelId = item.TitelId,
+                    Autor = item.Autor,
+                    Genre = item.Genre,
+                    Typ = item.Typ,
+                    Name = item.Name,
+                    Kurzbeschreibung = item.Kurzbeschreibung,
+                    Beschreibung = item.Beschreibung,
+                    Erscheinung = item.Erscheinung
+                };
+                titelviews.Add(tvm);
+            }
+
+            return View(titelviews);
+        }
+                
+        // GET: /Titel/ByTyp/string
+        public string ByTyp(string typ)
+        {
+            string bla = "";
+            bla += "controller: " + RouteData.Values["controller"] + "\n";
+            bla += "action: " + RouteData.Values["action"] + "\n";
+            bla += "queryString: " + Request.Url.Query + "\t";
+            bla += "typ: " + RouteData.Values["typ"];
+            bla += "typ: " + Request.QueryString["typ"];
+
+
+            return bla;
+            
+            //var titels = db.Titels
+            //    .Include(t => t.Autor)
+            //    .Include(t => t.Genre)
+            //    .Include(t => t.Typ)
+            //    .Where(t => t.Typ.Name == typ);
+
+            //List<TitelViewModel> titelviews = titelToTitelViewModel(titels);
+            //return View(titelviews);
         }
 
         // GET: /Titel/Details/5
@@ -33,7 +73,18 @@ namespace OnLib.Controllers
             {
                 return HttpNotFound();
             }
-            return View(titel);
+            TitelViewModel titelview = new TitelViewModel
+            {
+                TitelId = titel.TitelId,
+                Autor = titel.Autor,
+                Genre = titel.Genre,
+                Typ = titel.Typ,
+                Name = titel.Name,
+                Kurzbeschreibung = titel.Kurzbeschreibung,
+                Beschreibung = titel.Beschreibung,
+                Erscheinung = titel.Erscheinung
+            };
+            return View(titelview);
         }
 
         // GET: /Titel/Create
@@ -50,19 +101,36 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
+        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
+                if (!new AutorController().Exists(titelview.Autor.Nachname, titelview.Autor.Vorname))
+                {
+                    //Autor einfügen
+                }
+                Autor autor = db.Autors.Where(a => a.Nachname == titelview.Autor.Nachname && (String.IsNullOrEmpty(titelview.Autor.Vorname) || a.Vorname == titelview.Autor.Vorname)).Single();
+
+                Titel titel = new Titel
+                {
+                    Autor = autor,
+                    Typ = titelview.Typ,
+                    Genre = titelview.Genre,
+                    Name = titelview.Name,
+                    Kurzbeschreibung = titelview.Kurzbeschreibung,
+                    Beschreibung = titelview.Beschreibung,
+                    Erscheinung = titelview.Erscheinung
+                };
+
                 db.Titels.Add(titel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
+            return View(titelview);
         }
 
         // GET: /Titel/Edit/5
@@ -135,6 +203,45 @@ namespace OnLib.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        private List<TitelViewModel> titelToTitelViewModel(IEnumerable<Titel> titels)
+        {
+            List<TitelViewModel> titelviews = new List<TitelViewModel>();
+            foreach (Titel titel in titels)
+            {
+                TitelViewModel tvm = new TitelViewModel
+                {
+                    TitelId = titel.TitelId,
+                    Autor = titel.Autor,
+                    Genre = titel.Genre,
+                    Typ = titel.Typ,
+                    Name = titel.Name,
+                    Kurzbeschreibung = titel.Kurzbeschreibung,
+                    Beschreibung = titel.Beschreibung,
+                    Erscheinung = titel.Erscheinung
+                };
+                titelviews.Add(tvm);
+            }
+            return titelviews;
+        }
+
+
+        protected TitelViewModel titelToTitelViewModel(Titel titel)
+        {
+            TitelViewModel tvm = new TitelViewModel
+            {
+                TitelId = titel.TitelId,
+                Autor = titel.Autor,
+                Genre = titel.Genre,
+                Typ = titel.Typ,
+                Name = titel.Name,
+                Kurzbeschreibung = titel.Kurzbeschreibung,
+                Beschreibung = titel.Beschreibung,
+                Erscheinung = titel.Erscheinung
+            };
+            return tvm;
         }
     }
 }

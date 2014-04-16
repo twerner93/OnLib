@@ -1,4 +1,4 @@
-﻿@model OnLib.Models.Titel
+﻿@model OnLib.Models.TitelViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -19,8 +19,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AutorId, "Autor", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("AutorId", String.Empty)
-                @Html.ValidationMessageFor(model => model.AutorId)
+                @Html.TextBoxFor(model => model.Autor.Nachname)
+                @Html.ValidationMessageFor(model => model.Autor.Nachname)
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Autor.Vorname)
             </div>
         </div>
 
