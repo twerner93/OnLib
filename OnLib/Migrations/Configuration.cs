@@ -1,5 +1,7 @@
 namespace OnLib.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using OnLib.Models;
     using System;
     using System.Data.Entity;
