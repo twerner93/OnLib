@@ -8,122 +8,121 @@ using System.Web;
 using System.Web.Mvc;
 using OnLib.Models;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace OnLib.Controllers
 {
-    public class TitelController : Controller
+    [Authorize]
+    public class KopieController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: /Titel/
+        // GET: /Kopie/
         public ActionResult Index()
         {
-            var titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ);
-            return View(titels.ToList());
+            var kopies = db.Kopies.Include(k => k.Titel);
+            var users = db.Users.Include(u => u.UserName);
+            return View(kopies.ToList());
         }
 
-        // GET: /Titel/Details/5
+        // GET: /Kopie/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Titel titel = db.Titels.Find(id);
-            if (titel == null)
+            Kopie kopie = db.Kopies.Find(id);
+            if (kopie == null)
             {
                 return HttpNotFound();
             }
-            return View(titel);
+            return View(kopie);
         }
 
-        // GET: /Titel/Create
+        // GET: /Kopie/Create
         public ActionResult Create()
         {
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname");
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name");
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name");
+            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
             return View();
         }
 
-        // POST: /Titel/Create
+        // POST: /Kopie/Create
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
+        public ActionResult Create([Bind(Include="Id,TitelId,Typ,Ausgabe,Qualitaet")] Kopie kopie)
         {
             if (ModelState.IsValid)
             {
-                db.Titels.Add(titel);
+                var currentUserId = User.Identity.GetUserId();
+                kopie.UserProfile = db.Users.Find(currentUserId);
+                db.Kopies.Add(kopie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
+            return View(kopie);
         }
 
-        // GET: /Titel/Edit/5
+        // GET: /Kopie/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Titel titel = db.Titels.Find(id);
-            if (titel == null)
+            Kopie kopie = db.Kopies.Find(id);
+            if (kopie == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
+            return View(kopie);
         }
 
-        // POST: /Titel/Edit/5
+        // POST: /Kopie/Edit/5
         // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="TitelId,AutorId,TypId,Name,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
+        public ActionResult Edit([Bind(Include="Id,TitelId,Typ,Ausgabe,Qualitaet")] Kopie kopie)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(titel).State = EntityState.Modified;
+                db.Entry(kopie).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
+            return View(kopie);
         }
 
-        // GET: /Titel/Delete/5
+        // GET: /Kopie/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Titel titel = db.Titels.Find(id);
-            if (titel == null)
+            Kopie kopie = db.Kopies.Find(id);
+            if (kopie == null)
             {
                 return HttpNotFound();
             }
-            return View(titel);
+            return View(kopie);
         }
 
-        // POST: /Titel/Delete/5
+        // POST: /Kopie/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Titel titel = db.Titels.Find(id);
-            db.Titels.Remove(titel);
+            Kopie kopie = db.Kopies.Find(id);
+            db.Kopies.Remove(kopie);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

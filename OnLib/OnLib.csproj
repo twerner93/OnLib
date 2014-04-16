@@ -164,6 +164,7 @@
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KopieController.cs" />
     <Compile Include="Controllers\TitelController.cs" />
     <Compile Include="Controllers\TypController.cs" />
     <Compile Include="Global.asax.cs">
@@ -212,6 +213,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -252,6 +254,11 @@
     <Content Include="Views\Autor\Details.cshtml" />
     <Content Include="Views\Autor\Edit.cshtml" />
     <Content Include="Views\Autor\Index.cshtml" />
+    <Content Include="Views\Kopie\Create.cshtml" />
+    <Content Include="Views\Kopie\Delete.cshtml" />
+    <Content Include="Views\Kopie\Details.cshtml" />
+    <Content Include="Views\Kopie\Edit.cshtml" />
+    <Content Include="Views\Kopie\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
