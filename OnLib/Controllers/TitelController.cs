@@ -101,21 +101,34 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
+        public ActionResult Create([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
-                if (!new AutorController().Exists(titelview.Autor.Nachname, titelview.Autor.Vorname))
+                if (!new AutorController().Exists(titelview.AutorNachname, titelview.AutorVorname))
                 {
-                    //Autor einfügen
+                    Autor newAutor = new Autor
+                    {
+                        Nachname = titelview.AutorNachname,
+
+                    };
+                    if(!String.IsNullOrEmpty(titelview.AutorVorname)){
+                        newAutor.Vorname = titelview.AutorVorname;
+                    }
+                    new AutorController().Create(newAutor);
                 }
-                Autor autor = db.Autors.Where(a => a.Nachname == titelview.Autor.Nachname && (String.IsNullOrEmpty(titelview.Autor.Vorname) || a.Vorname == titelview.Autor.Vorname)).Single();
+                Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
+                Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
+                Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
 
                 Titel titel = new Titel
                 {
+                    AutorId = autor.AutorId,
                     Autor = autor,
-                    Typ = titelview.Typ,
-                    Genre = titelview.Genre,
+                    TypId = typ.TypId,
+                    Typ = typ,
+                    GenreId = genre.GenreId,
+                    Genre = genre,
                     Name = titelview.Name,
                     Kurzbeschreibung = titelview.Kurzbeschreibung,
                     Beschreibung = titelview.Beschreibung,
@@ -127,7 +140,7 @@ namespace OnLib.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
+            //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
             return View(titelview);

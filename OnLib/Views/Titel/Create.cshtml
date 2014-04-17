@@ -17,13 +17,13 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AutorId, "Autor", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Autor, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Autor.Nachname)
-                @Html.ValidationMessageFor(model => model.Autor.Nachname)
+                @Html.TextBoxFor(model => model.AutorNachname)
+                @Html.ValidationMessageFor(model => model.AutorNachname)
             </div>
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Autor.Vorname)
+                @Html.TextBoxFor(model => model.AutorVorname)
             </div>
         </div>
 
