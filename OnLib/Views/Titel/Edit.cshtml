@@ -1,4 +1,4 @@
-﻿@model OnLib.Models.Titel
+﻿@model OnLib.Models.TitelViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -18,10 +18,19 @@
         @Html.HiddenFor(model => model.TitelId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AutorId, "Autor", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Autor, new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
                 @Html.DropDownList("AutorId", String.Empty)
                 @Html.ValidationMessageFor(model => model.AutorId)
+            </div>*@
+            <div class="col-md-10">
+                <p>
+                    @Html.TextBoxFor(model => model.AutorNachname)
+                    @Html.ValidationMessageFor(model => model.AutorNachname)
+                </p>
+                <p>
+                    @Html.TextBoxFor(model => model.AutorVorname)
+                </p>
             </div>
         </div>
 

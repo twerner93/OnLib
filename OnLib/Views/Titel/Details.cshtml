@@ -15,6 +15,12 @@
         </dt>
 
         <dd>
+            @{
+                if (!String.IsNullOrEmpty(Model.Autor.Vorname))
+                {
+                    @Html.DisplayFor(model => model.Autor.Vorname)
+                }
+            }
             @Html.DisplayFor(model => model.Autor.Nachname)
         </dd>
 

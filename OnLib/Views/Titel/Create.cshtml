@@ -19,11 +19,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Autor, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.AutorNachname)
-                @Html.ValidationMessageFor(model => model.AutorNachname)
-            </div>
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.AutorVorname)
+                <p>
+                    @Html.TextBoxFor(model => model.AutorNachname)
+                    @Html.ValidationMessageFor(model => model.AutorNachname)
+                </p>
+                <p>
+                    @Html.TextBoxFor(model => model.AutorVorname)
+                </p>
             </div>
         </div>
 

@@ -158,10 +158,18 @@ namespace OnLib.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
+
+            //toTitelViewModel
+            TitelViewModel titelview = titelToTitelViewModel(titel);
+            titelview.AutorNachname = titel.Autor.Nachname;
+            if(!String.IsNullOrEmpty(titel.Autor.Vorname))
+            {
+                titelview.AutorVorname = titel.Autor.Vorname;
+            }
+            //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            return View(titelview);
         }
 
         // POST: /Titel/Edit/5
