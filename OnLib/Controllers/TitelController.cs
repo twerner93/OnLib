@@ -15,9 +15,17 @@ namespace OnLib.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: /Titel/
-        public ActionResult Index()
+        public ActionResult Index(string typ)
         {
-            var titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ);
+            List<Titel> titels = null;
+            if (!String.IsNullOrEmpty(typ))
+            {
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ).Where(t => t.Typ.Name == typ).ToList();
+            }
+            else
+            {
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ).ToList();
+            }
             List<TitelViewModel> titelviews = new List<TitelViewModel>();
             foreach (Titel item in titels)
             {
@@ -39,26 +47,26 @@ namespace OnLib.Controllers
         }
                 
         // GET: /Titel/ByTyp/string
-        public string ByTyp(string typ)
+        public ActionResult ByTyp(string typ)
         {
-            string bla = "";
-            bla += "controller: " + RouteData.Values["controller"] + "\n";
-            bla += "action: " + RouteData.Values["action"] + "\n";
-            bla += "queryString: " + Request.Url.Query + "\t";
-            bla += "typ: " + RouteData.Values["typ"];
-            bla += "typ: " + Request.QueryString["typ"];
+            //string bla = "";
+            //bla += "controller: " + RouteData.Values["controller"] + "\n";
+            //bla += "action: " + RouteData.Values["action"] + "\n";
+            //bla += "queryString: " + Request.Url.Query + "\t";
+            //bla += "typ: " + RouteData.Values["typ"];
+            //bla += "typ: " + Request.QueryString["typ"];
 
 
-            return bla;
+            //return typ;
             
-            //var titels = db.Titels
-            //    .Include(t => t.Autor)
-            //    .Include(t => t.Genre)
-            //    .Include(t => t.Typ)
-            //    .Where(t => t.Typ.Name == typ);
+            var titels = db.Titels
+                .Include(t => t.Autor)
+                .Include(t => t.Genre)
+                .Include(t => t.Typ)
+                .Where(t => t.Typ.Name == typ);
 
-            //List<TitelViewModel> titelviews = titelToTitelViewModel(titels);
-            //return View(titelviews);
+            List<TitelViewModel> titelviews = titelToTitelViewModel(titels);
+            return View(titelviews);
         }
 
         // GET: /Titel/Details/5
