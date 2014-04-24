@@ -245,11 +245,6 @@
     <Content Include="Views\Typ\Details.cshtml" />
     <Content Include="Views\Typ\Edit.cshtml" />
     <Content Include="Views\Typ\Index.cshtml" />
-    <Content Include="Views\Genre\Create.cshtml" />
-    <Content Include="Views\Genre\Delete.cshtml" />
-    <Content Include="Views\Genre\Details.cshtml" />
-    <Content Include="Views\Genre\Edit.cshtml" />
-    <Content Include="Views\Genre\Index.cshtml" />
     <Content Include="Views\Autor\Create.cshtml" />
     <Content Include="Views\Autor\Delete.cshtml" />
     <Content Include="Views\Autor\Details.cshtml" />
@@ -260,7 +255,11 @@
     <Content Include="Views\Kopie\Details.cshtml" />
     <Content Include="Views\Kopie\Edit.cshtml" />
     <Content Include="Views\Kopie\Index.cshtml" />
-    <Content Include="Views\Titel\ByTyp.cshtml" />
+    <Content Include="Views\Genre\Create.cshtml" />
+    <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Genre\Details.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

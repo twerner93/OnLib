@@ -38,34 +38,12 @@ namespace OnLib.Controllers
                     Name = item.Name,
                     Kurzbeschreibung = item.Kurzbeschreibung,
                     Beschreibung = item.Beschreibung,
-                    Erscheinung = item.Erscheinung
+                    Erscheinung = item.Erscheinung,
+                    Kopies = db.Kopies.Where(k => k.TitelId == item.TitelId).ToList()
                 };
                 titelviews.Add(tvm);
             }
 
-            return View(titelviews);
-        }
-                
-        // GET: /Titel/ByTyp/string
-        public ActionResult ByTyp(string typ)
-        {
-            //string bla = "";
-            //bla += "controller: " + RouteData.Values["controller"] + "\n";
-            //bla += "action: " + RouteData.Values["action"] + "\n";
-            //bla += "queryString: " + Request.Url.Query + "\t";
-            //bla += "typ: " + RouteData.Values["typ"];
-            //bla += "typ: " + Request.QueryString["typ"];
-
-
-            //return typ;
-            
-            var titels = db.Titels
-                .Include(t => t.Autor)
-                .Include(t => t.Genre)
-                .Include(t => t.Typ)
-                .Where(t => t.Typ.Name == typ);
-
-            List<TitelViewModel> titelviews = titelToTitelViewModel(titels);
             return View(titelviews);
         }
 

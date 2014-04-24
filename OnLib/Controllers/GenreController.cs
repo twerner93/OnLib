@@ -46,7 +46,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="GenreId,Name")] Genre genre)
+        public ActionResult Create([Bind(Include="GenreId,Typ,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="GenreId,Name")] Genre genre)
+        public ActionResult Edit([Bind(Include="GenreId,Typ,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {

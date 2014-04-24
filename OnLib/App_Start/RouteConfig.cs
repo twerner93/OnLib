@@ -15,7 +15,7 @@ namespace OnLib
 
             routes.MapRoute(
                 "Titel",
-                "Titel/{typ}",
+                "Titel/All/{typ}",
                 new { controller = "Titel", action = "Index", typ = UrlParameter.Optional }
             );
 
