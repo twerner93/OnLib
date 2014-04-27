@@ -50,9 +50,12 @@ namespace OnLib.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!Exists(genre.Name, genre.Typ))
+                {
+                    db.Genres.Add(genre);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(genre);
@@ -113,6 +116,18 @@ namespace OnLib.Controllers
             db.Genres.Remove(genre);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public bool Exists(string Name, string Typ)
+        {
+            foreach (Genre item in db.Genres)
+            {
+                if (item.Name == Name && item.Typ == Typ)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)
