@@ -7,7 +7,17 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Titel</h4>
+    <h4>
+        @{
+            if (!String.IsNullOrEmpty(Model.Autor.Vorname))
+            {
+                @Html.DisplayFor(model=>model.Autor.Vorname)
+            }
+        }
+        @Html.DisplayFor(model => model.Autor.Nachname)
+         - 
+        @Html.DisplayFor(model => model.Name)
+    </h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
