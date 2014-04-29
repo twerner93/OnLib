@@ -37,11 +37,7 @@ namespace OnLib.Migrations
 
             context.Genres.AddOrUpdate(
                 g => g.Name,
-                new Models.Genre { Name = "Rock", Typ = "Album" },
-                new Models.Genre { Name = "Test", Typ = "Album" },
-                new Models.Genre { Name = "Test", Typ = "Buch" },
-                new Models.Genre { Name = "Test", Typ = "Film" },
-                new Models.Genre { Name = "Test", Typ = "Serie" }
+                new Models.Genre { Name = "Rock", Typ = "Album" }
             );
         }
     }
