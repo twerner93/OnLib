@@ -68,7 +68,8 @@ namespace OnLib.Controllers
                 Name = titel.Name,
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
-                Erscheinung = titel.Erscheinung
+                Erscheinung = titel.Erscheinung,
+                Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
             return View(titelview);
         }

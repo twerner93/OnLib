@@ -12,9 +12,12 @@ using OnLib.Models;
 
 namespace OnLib.Controllers
 {
+    
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -312,6 +315,18 @@ namespace OnLib.Controllers
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
+        }
+
+        public bool UserExists(string username)
+        {
+            foreach (ApplicationUser item in db.Users)
+            {
+                if (item.UserName == username)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)

@@ -176,6 +176,7 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Kopie.cs" />
+    <Compile Include="Models\KopieViewModel.cs" />
     <Compile Include="Models\Titel.cs" />
     <Compile Include="Models\TitelViewModel.cs" />
     <Compile Include="Models\Typ.cs" />
