@@ -92,8 +92,30 @@
     </dl>
 </div>
 <div>@* Liste der Kopien *@
-    <table>
-
+    <table class="table">
+        <tr>
+            <th>Besitzer</th>
+            <th>Typ</th>
+            <th>Ausgabe</th>
+            <th>Qualität</th>
+        </tr>
+        @foreach (OnLib.Models.Kopie item in Model.Kopies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Typ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ausgabe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qualitaet)
+                </td>
+            </tr>       
+        }
     </table>
 </div>
 <p>
