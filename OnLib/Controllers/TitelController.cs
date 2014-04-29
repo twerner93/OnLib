@@ -55,6 +55,7 @@ namespace OnLib.Controllers
             return View(titelviews);
         }
 
+        [AllowAnonymous]
         public ActionResult Search(string searchString)
         {
             List<Titel> titels;
