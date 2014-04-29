@@ -49,6 +49,27 @@ namespace OnLib.Controllers
             return View(titelviews);
         }
 
+        public ActionResult Search(string searchString)
+        {
+            List<Titel> titels;
+            List<TitelViewModel> titelviews;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ)
+                    .Where(t => t.Name.Contains(searchString) || t.Autor.Vorname.Contains(searchString) ||
+                    t.Autor.Nachname.Contains(searchString)).ToList();
+            }
+            else
+            {
+                return Index("");
+            }
+
+            titelviews = titelToTitelViewModel(titels);
+
+
+            return View(titelviews);
+        }
+
         // GET: /Titel/Details/5
         public ActionResult Details(int? id)
         {
