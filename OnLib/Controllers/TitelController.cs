@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using OnLib.Models;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace OnLib.Controllers
 {
     [Authorize]
@@ -41,6 +44,9 @@ namespace OnLib.Controllers
                     Kurzbeschreibung = item.Kurzbeschreibung,
                     Beschreibung = item.Beschreibung,
                     Erscheinung = item.Erscheinung,
+                    Created = item.Created,
+                    Modified = item.Modified,
+                    LastModifiedBy = item.LastModifiedBy,
                     Kopies = db.Kopies.Where(k => k.TitelId == item.TitelId).ToList()
                 };
                 titelviews.Add(tvm);
@@ -92,6 +98,9 @@ namespace OnLib.Controllers
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
                 Erscheinung = titel.Erscheinung,
+                Created = titel.Created,
+                Modified = titel.Modified,
+                LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
             return View(titelview);
@@ -130,6 +139,7 @@ namespace OnLib.Controllers
                 Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
                 Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+                var currentUserId = User.Identity.GetUserId();
 
                 Titel titel = new Titel
                 {
@@ -142,7 +152,10 @@ namespace OnLib.Controllers
                     Name = titelview.Name,
                     Kurzbeschreibung = titelview.Kurzbeschreibung,
                     Beschreibung = titelview.Beschreibung,
-                    Erscheinung = titelview.Erscheinung
+                    Erscheinung = titelview.Erscheinung,
+                    Created = DateTime.Now,
+                    Modified = DateTime.Now,
+                    LastModifiedBy = db.Users.Find(currentUserId)
                 };
 
                 db.Titels.Add(titel);
@@ -197,11 +210,14 @@ namespace OnLib.Controllers
                 Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
                 Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+                var currentUserId = User.Identity.GetUserId();
 
                 Titel titel = db.Titels.Find(titelview.TitelId);
                 titel.Autor = autor;
                 titel.Genre = genre;
                 titel.Typ = typ;
+                titel.Modified = DateTime.Now;
+                titel.LastModifiedBy = db.Users.Find(currentUserId);
                 if (!String.IsNullOrEmpty(titelview.Beschreibung)) { titel.Beschreibung = titelview.Beschreibung; }
                 if (!String.IsNullOrEmpty(titelview.Kurzbeschreibung)) { titel.Kurzbeschreibung = titelview.Kurzbeschreibung; }
                 titel.Erscheinung = titelview.Erscheinung;
@@ -265,7 +281,11 @@ namespace OnLib.Controllers
                     Name = titel.Name,
                     Kurzbeschreibung = titel.Kurzbeschreibung,
                     Beschreibung = titel.Beschreibung,
-                    Erscheinung = titel.Erscheinung
+                    Erscheinung = titel.Erscheinung,
+                    Created = titel.Created,
+                    Modified = titel.Modified,
+                    LastModifiedBy = titel.LastModifiedBy,
+                    Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
                 };
                 titelviews.Add(tvm);
             }
@@ -284,7 +304,11 @@ namespace OnLib.Controllers
                 Name = titel.Name,
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
-                Erscheinung = titel.Erscheinung
+                Erscheinung = titel.Erscheinung,
+                Created = titel.Created,
+                Modified = titel.Modified,
+                LastModifiedBy = titel.LastModifiedBy,
+                Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
             return tvm;
         }
