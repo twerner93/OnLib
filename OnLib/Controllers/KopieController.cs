@@ -68,6 +68,18 @@ namespace OnLib.Controllers
             return View(kopie);
         }
 
+        // GET: /Kopie/CreateFor
+        public ActionResult CreateFor(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Create");
+            }
+            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
+            ViewBag.Titel = db.Titels.Find(id);
+            return View();
+        }
+
         // GET: /Kopie/Edit/5
         public ActionResult Edit(int? id)
         {

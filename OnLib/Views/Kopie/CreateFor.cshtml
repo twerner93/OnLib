@@ -1,0 +1,69 @@
+﻿@model OnLib.Models.Kopie
+
+@{
+    ViewBag.Title = "CreateFor";
+}
+
+<h2>Create Kopie for @ViewBag.Titel.Name</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Kopie</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TitelId, "TitelId", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.Titel.Name
+                @{
+                    Model.TitelId = ViewBag.Titel.TitelId;
+                    //unsichtbares Eingabefeld
+                }
+                @Html.ValidationMessageFor(model => model.TitelId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Typ, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Typ)
+                @Html.ValidationMessageFor(model => model.Typ)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ausgabe, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ausgabe)
+                @Html.ValidationMessageFor(model => model.Ausgabe)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Qualitaet, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Qualitaet)
+                @Html.ValidationMessageFor(model => model.Qualitaet)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

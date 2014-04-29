@@ -176,7 +176,9 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Kopie.cs" />
+    <Compile Include="Models\KopieViewModel.cs" />
     <Compile Include="Models\Titel.cs" />
+    <Compile Include="Models\TitelViewModel.cs" />
     <Compile Include="Models\Typ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -244,11 +246,6 @@
     <Content Include="Views\Typ\Details.cshtml" />
     <Content Include="Views\Typ\Edit.cshtml" />
     <Content Include="Views\Typ\Index.cshtml" />
-    <Content Include="Views\Genre\Create.cshtml" />
-    <Content Include="Views\Genre\Delete.cshtml" />
-    <Content Include="Views\Genre\Details.cshtml" />
-    <Content Include="Views\Genre\Edit.cshtml" />
-    <Content Include="Views\Genre\Index.cshtml" />
     <Content Include="Views\Autor\Create.cshtml" />
     <Content Include="Views\Autor\Delete.cshtml" />
     <Content Include="Views\Autor\Details.cshtml" />
@@ -259,6 +256,12 @@
     <Content Include="Views\Kopie\Details.cshtml" />
     <Content Include="Views\Kopie\Edit.cshtml" />
     <Content Include="Views\Kopie\Index.cshtml" />
+    <Content Include="Views\Genre\Create.cshtml" />
+    <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Genre\Details.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
+    <Content Include="Views\Kopie\CreateFor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

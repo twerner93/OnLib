@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnLib.Models.Titel>
+﻿@model IEnumerable<OnLib.Models.TitelViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -9,6 +9,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<p>
+    @Html.ActionLink("Alle", "All", "Titel") | @Html.ActionLink("Album", "Album", "Titel/All") | @Html.ActionLink("Buch", "Buch", "Titel/All") | @Html.ActionLink("Film", "Film", "Titel/All")
+    | @Html.ActionLink("Serie", "Serie", "Titel/All")
+</p>
+
 <table class="table">
     <tr>
         <th>
@@ -28,6 +34,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Erscheinung)
+        </th>
+        <th>
+            Anzahl Kopien
         </th>
         <th></th>
     </tr>
@@ -55,6 +64,9 @@
                 string erscheinung = jahr.ToString();
             }
             @erscheinung
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kopies.Count)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TitelId }) |

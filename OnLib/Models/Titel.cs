@@ -20,5 +20,6 @@ namespace OnLib.Models
         public virtual Autor Autor { get; set; }
         public virtual Genre Genre { get; set; }
         public virtual Typ Typ { get; set; }
+        //public virtual ICollection<Kopie> MyProperty { get; set; }
     }
 }

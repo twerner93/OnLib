@@ -46,13 +46,16 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="GenreId,Name")] Genre genre)
+        public ActionResult Create([Bind(Include="GenreId,Typ,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!Exists(genre.Name, genre.Typ))
+                {
+                    db.Genres.Add(genre);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(genre);
@@ -78,7 +81,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="GenreId,Name")] Genre genre)
+        public ActionResult Edit([Bind(Include="GenreId,Typ,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
@@ -113,6 +116,18 @@ namespace OnLib.Controllers
             db.Genres.Remove(genre);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public bool Exists(string Name, string Typ)
+        {
+            foreach (Genre item in db.Genres)
+            {
+                if (item.Name == Name && item.Typ == Typ)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)
