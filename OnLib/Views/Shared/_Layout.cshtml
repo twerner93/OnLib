@@ -23,7 +23,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Alle Titel", "Index", "Titel")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alle Medien<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">@Html.ActionLink("Alle Titel", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Alle Alben", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Alle Filme", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Alle Bücher", "Index", "Home")</a></li>
+                            <li><a href="#">@Html.ActionLink("Alle Serien", "Index", "Home")</a></li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Info", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
