@@ -10,10 +10,12 @@ using OnLib.Models;
 
 namespace OnLib.Controllers
 {
+    [Authorize]
     public class TitelController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [AllowAnonymous]
         // GET: /Titel/
         public ActionResult Index(string typ)
         {
@@ -165,18 +167,31 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="TitelId,AutorId,TypId,Name,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
+        public ActionResult Edit([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
+                //TODO Autor hinzufügen...
+
+                Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
+                Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
+                Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+
+                Titel titel = db.Titels.Find(titelview.TitelId);
+                titel.Autor = autor;
+                titel.Genre = genre;
+                titel.Typ = typ;
+                if (!String.IsNullOrEmpty(titelview.Beschreibung)) { titel.Beschreibung = titelview.Beschreibung; }
+                if (!String.IsNullOrEmpty(titelview.Kurzbeschreibung)) { titel.Kurzbeschreibung = titelview.Kurzbeschreibung; }
+                titel.Erscheinung = titelview.Erscheinung;
+
                 db.Entry(titel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
+            return View(titelview);
         }
 
         // GET: /Titel/Delete/5
