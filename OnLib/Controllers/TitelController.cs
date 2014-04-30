@@ -25,11 +25,13 @@ namespace OnLib.Controllers
             List<Titel> titels = null;
             if (!String.IsNullOrEmpty(typ))
             {
-                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ).Where(t => t.Typ.Name == typ).ToList();
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ)
+                    .Where(t => t.Typ.Name == typ).OrderBy(t => t.Name).ToList();
             }
             else
             {
-                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ).ToList();
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre)
+                    .OrderBy(t => t.Name).Include(t => t.Typ).ToList();
             }
             List<TitelViewModel> titelviews = new List<TitelViewModel>();
             foreach (Titel item in titels)
