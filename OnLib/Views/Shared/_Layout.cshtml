@@ -23,10 +23,26 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Alle Titel", "Index", "Titel")</li>
-                    <li>@Html.ActionLink("Info", "About", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Alle Medien <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Alle", "All", "Titel")</li>
+                            <li>@Html.ActionLink("Alben", "All/Album", "Titel")</li>
+                            <li>@Html.ActionLink("Bücher", "All/Buch", "Titel")</li>
+                            <li>@Html.ActionLink("Filme", "All/Film", "Titel")</li>
+                            <li>@Html.ActionLink("Serien", "All/Serie", "Titel")</li>
+                        </ul>
+                    </li>
+                        @*<li>@Html.ActionLink("Info", "About", "Home")</li>*@
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
+                @using (Html.BeginForm("Search", "Titel", FormMethod.Post, new { @class = "navbar-form navbar-left" }))
+                {
+                    <div class="form-group">
+                        <input type="text" id="searchString" name="searchString" class="form-control" placeholder="Suche" />
+                    </div>
+                    <button type="submit" class="btn btn-default">Suchen</button>
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

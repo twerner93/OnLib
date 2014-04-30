@@ -115,6 +115,26 @@ namespace OnLib.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: /Autor/Exists/
+        public bool Exists(string name, string vorname)
+        {
+            foreach (var item in db.Autors)
+            {
+                if (item.Nachname == name)
+                {
+                    if (String.IsNullOrEmpty(vorname))
+                    {
+                        return true;
+                    }
+                    else if (item.Vorname == vorname)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

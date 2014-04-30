@@ -14,6 +14,18 @@ namespace OnLib
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Titel",
+                "Titel/All/{typ}",
+                new { controller = "Titel", action = "Index", typ = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Suche",
+                "Titel/Search/{searchString}",
+                new { controller = "Titel", action = "Search", searchString = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

@@ -1,4 +1,4 @@
-﻿@model OnLib.Models.Titel
+﻿@model OnLib.Models.TitelViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,17 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Titel</h4>
+    <h4>
+        @{
+            if (!String.IsNullOrEmpty(Model.Autor.Vorname))
+            {
+                @Html.DisplayFor(model=>model.Autor.Vorname)
+            }
+        }
+        @Html.DisplayFor(model => model.Autor.Nachname)
+         - 
+        @Html.DisplayFor(model => model.Name)
+    </h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,6 +25,12 @@
         </dt>
 
         <dd>
+            @{
+                if (!String.IsNullOrEmpty(Model.Autor.Vorname))
+                {
+                    @Html.DisplayFor(model => model.Autor.Vorname)
+                }
+            }
             @Html.DisplayFor(model => model.Autor.Nachname)
         </dd>
 
@@ -66,10 +82,41 @@
             @Html.DisplayFor(model => model.Erscheinung)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Kopies)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kopies.Count)
+        </dd>
     </dl>
 </div>
 <div>@* Liste der Kopien *@
-
+    <table class="table">
+        <tr>
+            <th>Besitzer</th>
+            <th>Typ</th>
+            <th>Ausgabe</th>
+            <th>Qualität</th>
+        </tr>
+        @foreach (OnLib.Models.Kopie item in Model.Kopies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Typ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ausgabe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qualitaet)
+                </td>
+            </tr>       
+        }
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.TitelId }) |

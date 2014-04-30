@@ -26,6 +26,19 @@ namespace OnLib.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Typs.AddOrUpdate(
+                t => t.Name,
+                new Models.Typ { Name = "Album" },
+                new Models.Typ { Name = "Buch" },
+                new Models.Typ { Name = "Film" },
+                new Models.Typ { Name = "Serie" }
+            );
+
+            context.Genres.AddOrUpdate(
+                g => g.Name,
+                new Models.Genre { Name = "Rock", Typ = "Album" }
+            );
         }
     }
 }

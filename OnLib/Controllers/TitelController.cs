@@ -8,17 +8,75 @@ using System.Web;
 using System.Web.Mvc;
 using OnLib.Models;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace OnLib.Controllers
 {
+    [Authorize]
     public class TitelController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [AllowAnonymous]
         // GET: /Titel/
-        public ActionResult Index()
+        public ActionResult Index(string typ)
         {
-            var titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ);
-            return View(titels.ToList());
+            List<Titel> titels = null;
+            if (!String.IsNullOrEmpty(typ))
+            {
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ)
+                    .Where(t => t.Typ.Name == typ).OrderBy(t => t.Name).ToList();
+            }
+            else
+            {
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre)
+                    .OrderBy(t => t.Name).Include(t => t.Typ).ToList();
+            }
+            List<TitelViewModel> titelviews = new List<TitelViewModel>();
+            foreach (Titel item in titels)
+            {
+                TitelViewModel tvm = new TitelViewModel
+                {
+                    TitelId = item.TitelId,
+                    Autor = item.Autor,
+                    Genre = item.Genre,
+                    Typ = item.Typ,
+                    Name = item.Name,
+                    Kurzbeschreibung = item.Kurzbeschreibung,
+                    Beschreibung = item.Beschreibung,
+                    Erscheinung = item.Erscheinung,
+                    Created = item.Created,
+                    Modified = item.Modified,
+                    LastModifiedBy = item.LastModifiedBy,
+                    Kopies = db.Kopies.Where(k => k.TitelId == item.TitelId).ToList()
+                };
+                titelviews.Add(tvm);
+            }
+
+            return View(titelviews);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Search(string searchString)
+        {
+            List<Titel> titels;
+            List<TitelViewModel> titelviews;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                titels = db.Titels.Include(t => t.Autor).Include(t => t.Genre).Include(t => t.Typ)
+                    .Where(t => t.Name.Contains(searchString) || t.Autor.Vorname.Contains(searchString) ||
+                    t.Autor.Nachname.Contains(searchString)).ToList();
+            }
+            else
+            {
+                return Index("");
+            }
+
+            titelviews = titelToTitelViewModel(titels);
+
+
+            return View(titelviews);
         }
 
         // GET: /Titel/Details/5
@@ -33,7 +91,22 @@ namespace OnLib.Controllers
             {
                 return HttpNotFound();
             }
-            return View(titel);
+            TitelViewModel titelview = new TitelViewModel
+            {
+                TitelId = titel.TitelId,
+                Autor = titel.Autor,
+                Genre = titel.Genre,
+                Typ = titel.Typ,
+                Name = titel.Name,
+                Kurzbeschreibung = titel.Kurzbeschreibung,
+                Beschreibung = titel.Beschreibung,
+                Erscheinung = titel.Erscheinung,
+                Created = titel.Created,
+                Modified = titel.Modified,
+                LastModifiedBy = titel.LastModifiedBy,
+                Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
+            };
+            return View(titelview);
         }
 
         // GET: /Titel/Create
@@ -50,19 +123,54 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorId,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] Titel titel)
+        public ActionResult Create([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
+                if (!new AutorController().Exists(titelview.AutorNachname, titelview.AutorVorname))
+                {
+                    Autor newAutor = new Autor
+                    {
+                        Nachname = titelview.AutorNachname,
+
+                    };
+                    if(!String.IsNullOrEmpty(titelview.AutorVorname)){
+                        newAutor.Vorname = titelview.AutorVorname;
+                    }
+                    new AutorController().Create(newAutor);
+                }
+                Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
+                Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
+                Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+                var currentUserId = User.Identity.GetUserId();
+
+                Titel titel = new Titel
+                {
+                    AutorId = autor.AutorId,
+                    Autor = autor,
+                    TypId = typ.TypId,
+                    Typ = typ,
+                    GenreId = genre.GenreId,
+                    Genre = genre,
+                    Name = titelview.Name,
+                    Kurzbeschreibung = titelview.Kurzbeschreibung,
+                    Beschreibung = titelview.Beschreibung,
+                    Erscheinung = titelview.Erscheinung,
+                    Created = DateTime.Now,
+                    Modified = DateTime.Now,
+                    LastModifiedBy = db.Users.Find(currentUserId)
+                };
+
                 db.Titels.Add(titel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("CreateFor", "Kopie", db.Titels.Where(t => t.Name == titel.Name && t.Autor.Nachname == titel.Autor.Nachname).Single().TitelId);
             }
 
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
+            return View(titelview);
         }
 
         // GET: /Titel/Edit/5
@@ -77,10 +185,18 @@ namespace OnLib.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
+
+            //toTitelViewModel
+            TitelViewModel titelview = titelToTitelViewModel(titel);
+            titelview.AutorNachname = titel.Autor.Nachname;
+            if(!String.IsNullOrEmpty(titel.Autor.Vorname))
+            {
+                titelview.AutorVorname = titel.Autor.Vorname;
+            }
+            //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            return View(titelview);
         }
 
         // POST: /Titel/Edit/5
@@ -88,18 +204,34 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="TitelId,AutorId,TypId,Name,Kurzbeschreibung,Beschreibung,Genre,Erscheinung")] Titel titel)
+        public ActionResult Edit([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
+                //TODO Autor hinzufügen...
+
+                Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
+                Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
+                Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+                var currentUserId = User.Identity.GetUserId();
+
+                Titel titel = db.Titels.Find(titelview.TitelId);
+                titel.Autor = autor;
+                titel.Genre = genre;
+                titel.Typ = typ;
+                titel.Modified = DateTime.Now;
+                titel.LastModifiedBy = db.Users.Find(currentUserId);
+                if (!String.IsNullOrEmpty(titelview.Beschreibung)) { titel.Beschreibung = titelview.Beschreibung; }
+                if (!String.IsNullOrEmpty(titelview.Kurzbeschreibung)) { titel.Kurzbeschreibung = titelview.Kurzbeschreibung; }
+                titel.Erscheinung = titelview.Erscheinung;
+
                 db.Entry(titel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
-            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
-            return View(titel);
+            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
+            ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
+            return View(titelview);
         }
 
         // GET: /Titel/Delete/5
@@ -135,6 +267,53 @@ namespace OnLib.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        private List<TitelViewModel> titelToTitelViewModel(IEnumerable<Titel> titels)
+        {
+            List<TitelViewModel> titelviews = new List<TitelViewModel>();
+            foreach (Titel titel in titels)
+            {
+                TitelViewModel tvm = new TitelViewModel
+                {
+                    TitelId = titel.TitelId,
+                    Autor = titel.Autor,
+                    Genre = titel.Genre,
+                    Typ = titel.Typ,
+                    Name = titel.Name,
+                    Kurzbeschreibung = titel.Kurzbeschreibung,
+                    Beschreibung = titel.Beschreibung,
+                    Erscheinung = titel.Erscheinung,
+                    Created = titel.Created,
+                    Modified = titel.Modified,
+                    LastModifiedBy = titel.LastModifiedBy,
+                    Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
+                };
+                titelviews.Add(tvm);
+            }
+            return titelviews;
+        }
+
+
+        protected TitelViewModel titelToTitelViewModel(Titel titel)
+        {
+            TitelViewModel tvm = new TitelViewModel
+            {
+                TitelId = titel.TitelId,
+                Autor = titel.Autor,
+                Genre = titel.Genre,
+                Typ = titel.Typ,
+                Name = titel.Name,
+                Kurzbeschreibung = titel.Kurzbeschreibung,
+                Beschreibung = titel.Beschreibung,
+                Erscheinung = titel.Erscheinung,
+                Created = titel.Created,
+                Modified = titel.Modified,
+                LastModifiedBy = titel.LastModifiedBy,
+                Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
+            };
+            return tvm;
         }
     }
 }

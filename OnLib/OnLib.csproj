@@ -164,6 +164,7 @@
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KopieController.cs" />
     <Compile Include="Controllers\TitelController.cs" />
     <Compile Include="Controllers\TypController.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,7 +176,9 @@
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Kopie.cs" />
+    <Compile Include="Models\KopieViewModel.cs" />
     <Compile Include="Models\Titel.cs" />
+    <Compile Include="Models\TitelViewModel.cs" />
     <Compile Include="Models\Typ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -212,6 +215,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -242,16 +246,23 @@
     <Content Include="Views\Typ\Details.cshtml" />
     <Content Include="Views\Typ\Edit.cshtml" />
     <Content Include="Views\Typ\Index.cshtml" />
-    <Content Include="Views\Genre\Create.cshtml" />
-    <Content Include="Views\Genre\Delete.cshtml" />
-    <Content Include="Views\Genre\Details.cshtml" />
-    <Content Include="Views\Genre\Edit.cshtml" />
-    <Content Include="Views\Genre\Index.cshtml" />
     <Content Include="Views\Autor\Create.cshtml" />
     <Content Include="Views\Autor\Delete.cshtml" />
     <Content Include="Views\Autor\Details.cshtml" />
     <Content Include="Views\Autor\Edit.cshtml" />
     <Content Include="Views\Autor\Index.cshtml" />
+    <Content Include="Views\Kopie\Create.cshtml" />
+    <Content Include="Views\Kopie\Delete.cshtml" />
+    <Content Include="Views\Kopie\Details.cshtml" />
+    <Content Include="Views\Kopie\Edit.cshtml" />
+    <Content Include="Views\Kopie\Index.cshtml" />
+    <Content Include="Views\Genre\Create.cshtml" />
+    <Content Include="Views\Genre\Delete.cshtml" />
+    <Content Include="Views\Genre\Details.cshtml" />
+    <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
+    <Content Include="Views\Kopie\CreateFor.cshtml" />
+    <Content Include="Views\Titel\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
