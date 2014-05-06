@@ -260,6 +260,21 @@ namespace OnLib.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: /Titel/AddKopie/5
+        public ActionResult AddKopie(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Titel titel = db.Titels.Find(id);
+            if (titel == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Create/"+titel.TitelId, "Kopie");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

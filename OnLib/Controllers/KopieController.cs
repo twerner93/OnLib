@@ -41,11 +41,19 @@ namespace OnLib.Controllers
             return View(kopie);
         }
 
-        // GET: /Kopie/Create
-        public ActionResult Create()
+        // GET: /Kopie/Create/5
+        public ActionResult Create(int? id)
         {
-            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
-            return View();
+            if (id == null)
+            {
+                ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
+                return View();
+            }
+
+            Titel titel = db.Titels.Find(id);
+            Kopie kopie = new Kopie { TitelId = titel.TitelId };
+
+            return View(kopie);
         }
 
         // POST: /Kopie/Create
