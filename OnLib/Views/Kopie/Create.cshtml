@@ -19,8 +19,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TitelId, "TitelId", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TitelId", String.Empty)
-                @Html.ValidationMessageFor(model => model.TitelId)
+                @{if (ViewBag.forTitel == false)
+                  {
+                      @Html.DropDownList("TitelId", String.Empty)
+                      @Html.ValidationMessageFor(model => model.TitelId)
+                  }
+                  else{
+                      @Html.DisplayFor(model => model.Titel.Name)
+                      @Html.HiddenFor(model => model.TitelId, Model.TitelId)
+                  }
+                }
             </div>
         </div>
 

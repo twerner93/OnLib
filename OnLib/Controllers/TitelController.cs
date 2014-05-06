@@ -163,8 +163,10 @@ namespace OnLib.Controllers
 
                 db.Titels.Add(titel);
                 db.SaveChanges();
+
+                Titel temp = db.Titels.FirstOrDefault(t => t.Name == titel.Name && t.AutorId == titel.AutorId);
                 //return RedirectToAction("Index");
-                return RedirectToAction("CreateFor", "Kopie", db.Titels.Where(t => t.Name == titel.Name && t.Autor.Nachname == titel.Autor.Nachname).Single().TitelId);
+                return RedirectToAction("Create/" + temp.TitelId, "Kopie");
             }
 
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);

@@ -47,11 +47,14 @@ namespace OnLib.Controllers
             if (id == null)
             {
                 ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
+                ViewBag.forTitel = false;
                 return View();
             }
 
             Titel titel = db.Titels.Find(id);
-            Kopie kopie = new Kopie { TitelId = titel.TitelId };
+            Kopie kopie = new Kopie { TitelId = titel.TitelId, Titel = titel};
+
+            ViewBag.forTitel = true;
 
             return View(kopie);
         }
@@ -69,7 +72,7 @@ namespace OnLib.Controllers
                 kopie.UserProfile = db.Users.Find(currentUserId);
                 db.Kopies.Add(kopie);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + kopie.TitelId, "Titel");
             }
 
             ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
