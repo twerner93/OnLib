@@ -329,6 +329,14 @@ namespace OnLib.Controllers
             return false;
         }
 
+        public void DeleteUser(string UserName)
+        {
+            if (UserExists(UserName))
+            {
+                db.Users.Remove(db.Users.Where(u => u.UserName == UserName).Single());
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && UserManager != null)
