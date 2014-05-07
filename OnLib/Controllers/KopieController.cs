@@ -79,18 +79,6 @@ namespace OnLib.Controllers
             return View(kopie);
         }
 
-        // GET: /Kopie/CreateFor
-        public ActionResult CreateFor(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Create");
-            }
-            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
-            ViewBag.Titel = db.Titels.Find(id);
-            return View();
-        }
-
         // GET: /Kopie/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -148,6 +136,34 @@ namespace OnLib.Controllers
             db.Kopies.Remove(kopie);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: /Kopie/Leihen/5
+        public ActionResult Leihen(int id)
+        {
+            Kopie kopie = db.Kopies.Find(id);
+            var currentUserId = User.Identity.GetUserId();
+            Leihe leihe = new Leihe
+            {
+                Kopie = kopie,
+                KopieId = kopie.Id,
+                UserProfile = db.Users.Find(currentUserId)
+            };
+            return View(leihe);
+        }
+
+        // POST: /Kopie/Leihen/5
+        [HttpPost, ActionName("Leihen")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Leihen(Leihe leihe)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Leihes.Add(leihe);
+                db.SaveChanges();
+                return RedirectToAction("Details/" + leihe.Kopie.TitelId, "Titel");
+            }
+            return View(leihe);
         }
 
         protected override void Dispose(bool disposing)
