@@ -24,7 +24,7 @@ namespace OnLib.Controllers
         {
             Leihe leihe = db.Leihes.Find(id);
 
-            return View();
+            return View(leihe);
         }
 
         //
