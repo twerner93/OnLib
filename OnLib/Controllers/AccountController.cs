@@ -326,7 +326,8 @@ namespace OnLib.Controllers
         // GET: /Account/ManageAccountData
         public ActionResult ManageAccountData()
         {
-            throw new NotImplementedException();
+            //TODO:aktuellen Benutzer suchen
+            return View();
         }
 
         public bool UserExists(string username)
