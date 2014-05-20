@@ -47,7 +47,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Typ.Name)
+            @Html.DisplayFor(model => model.Typ.Name) &nbsp;
         </dd>
 
         <dt>
@@ -55,7 +55,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Kurzbeschreibung)
+            @Html.DisplayFor(model => model.Kurzbeschreibung) &nbsp;
         </dd>
 
         <dt>
@@ -63,7 +63,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Beschreibung)
+            @Html.DisplayFor(model => model.Beschreibung) &nbsp;
         </dd>
 
         <dt>
@@ -71,7 +71,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Genre.Name)
+            @Html.DisplayFor(model => model.Genre.Name) &nbsp;
         </dd>
 
         <dt>
@@ -79,7 +79,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Erscheinung)
+            @Html.DisplayFor(model => model.Erscheinung) &nbsp;
         </dd>
 
         <dt>
@@ -87,11 +87,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Kopies.Count)
+            @Html.DisplayFor(model => model.Kopies.Count) &nbsp;
         </dd>
     </dl>
 </div>
 <div>@* Liste der Kopien *@
+    <p>
+        @Html.ActionLink("Kopie hinzufügen", "AddKopie/"+Model.TitelId)
+    </p>
     <table class="table">
         <tr>
             <th>Besitzer</th>

@@ -13,18 +13,44 @@ namespace OnLib.Tests.Controllers
     [TestClass]
     public class AccountControllerTest
     {
-        //[ClassCleanup]
-        //public void RemoveTestUsers()
-        //{
-
-        //}
+        //private static AccountController controller = new AccountController();
 
         [TestMethod]
         public void RegisterTest()
         {
-            AccountController controller = new AccountController();
+            //arrange
+            Models.RegisterViewModel model = new Models.RegisterViewModel
+            {
+                UserName = "TestBenutzer",
+                Vorname = "Test",
+                Nachname = "Benutzer",
+                Email = "test@benutzer.de",
+                Geburtstag = new DateTime(1800, 1, 1),
+                Password = "Test123",
+                ConfirmPassword = "Test123"
+            };
 
+           //act
+            var controller = new AccountController();
+            var result = controller.Register(model);
+
+
+            
+            //assert
             Assert.IsTrue(controller.UserExists("TestBenutzer123"));
+        }
+
+         [TestMethod]
+         public void UserExists()
+         {
+             //arrange
+             string UserName = "TestBenutzer";
+
+             //act
+             //bool exists = controller.UserExists(UserName);
+
+             //assert
+             Assert.IsTrue(false);
         }
     }
 }

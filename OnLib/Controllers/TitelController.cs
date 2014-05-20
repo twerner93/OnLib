@@ -143,7 +143,11 @@ namespace OnLib.Controllers
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
                 Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
                 var currentUserId = User.Identity.GetUserId();
-
+                if (Exists(titelview.Name, autor.AutorId))
+                {
+                    Titel temp1 = db.Titels.FirstOrDefault(t => t.Name == titelview.Name && t.AutorId == autor.AutorId);
+                    return RedirectToAction("Create/" + temp1.TitelId, "Kopie");
+                }
                 Titel titel = new Titel
                 {
                     AutorId = autor.AutorId,
@@ -163,8 +167,10 @@ namespace OnLib.Controllers
 
                 db.Titels.Add(titel);
                 db.SaveChanges();
+
+                Titel temp2 = db.Titels.FirstOrDefault(t => t.Name == titel.Name && t.AutorId == titel.AutorId);
                 //return RedirectToAction("Index");
-                return RedirectToAction("CreateFor", "Kopie", db.Titels.Where(t => t.Name == titel.Name && t.Autor.Nachname == titel.Autor.Nachname).Single().TitelId);
+                return RedirectToAction("Create/" + temp2.TitelId, "Kopie");
             }
 
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
@@ -258,6 +264,34 @@ namespace OnLib.Controllers
             db.Titels.Remove(titel);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: /Titel/AddKopie/5
+        public ActionResult AddKopie(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Titel titel = db.Titels.Find(id);
+            if (titel == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Create/"+titel.TitelId, "Kopie");
+        }
+
+        // GET: /Titel/Exists
+        public bool Exists(string name, int autorid)
+        {
+            foreach (Titel item in db.Titels)
+            {
+                if (item.Name == name && item.AutorId == autorid)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)

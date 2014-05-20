@@ -41,11 +41,22 @@ namespace OnLib.Controllers
             return View(kopie);
         }
 
-        // GET: /Kopie/Create
-        public ActionResult Create()
+        // GET: /Kopie/Create/5
+        public ActionResult Create(int? id)
         {
-            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
-            return View();
+            if (id == null)
+            {
+                ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
+                ViewBag.forTitel = false;
+                return View();
+            }
+
+            Titel titel = db.Titels.Find(id);
+            Kopie kopie = new Kopie { TitelId = titel.TitelId, Titel = titel};
+
+            ViewBag.forTitel = true;
+
+            return View(kopie);
         }
 
         // POST: /Kopie/Create
@@ -61,23 +72,11 @@ namespace OnLib.Controllers
                 kopie.UserProfile = db.Users.Find(currentUserId);
                 db.Kopies.Add(kopie);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + kopie.TitelId, "Titel");
             }
 
             ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
             return View(kopie);
-        }
-
-        // GET: /Kopie/CreateFor
-        public ActionResult CreateFor(int? id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Create");
-            }
-            ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name");
-            ViewBag.Titel = db.Titels.Find(id);
-            return View();
         }
 
         // GET: /Kopie/Edit/5
@@ -137,6 +136,34 @@ namespace OnLib.Controllers
             db.Kopies.Remove(kopie);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: /Kopie/Leihen/5
+        public ActionResult Leihen(int id)
+        {
+            Kopie kopie = db.Kopies.Find(id);
+            var currentUserId = User.Identity.GetUserId();
+            Leihe leihe = new Leihe
+            {
+                Kopie = kopie,
+                KopieId = kopie.Id,
+                UserProfile = db.Users.Find(currentUserId)
+            };
+            return View(leihe);
+        }
+
+        // POST: /Kopie/Leihen/5
+        [HttpPost, ActionName("Leihen")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Leihen(Leihe leihe)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Leihes.Add(leihe);
+                db.SaveChanges();
+                return RedirectToAction("Details/" + leihe.Kopie.TitelId, "Titel");
+            }
+            return View(leihe);
         }
 
         protected override void Dispose(bool disposing)
