@@ -1,10 +1,10 @@
 ﻿@model OnLib.Models.ManageUserDataViewModel
 
 @{
-    ViewBag.Title = "ManageAccountData";
+    ViewBag.Title = "Persönliche Daten ändern";
 }
 
-<h2>ManageAccountData</h2>
+<h2>Persönliche Daten bearbeiten</h2>
 
 
 @using (Html.BeginForm())
@@ -95,9 +95,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

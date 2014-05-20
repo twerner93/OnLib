@@ -90,6 +90,7 @@ namespace OnLib.Controllers
                                                    HausNr = model.HausNr,
                                                    PLZ = model.PLZ,
                                                    Ort = model.Ort,
+                                                   Land = model.Land,
                                                    RegistrationDate = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -324,7 +325,7 @@ namespace OnLib.Controllers
 
         //
         // GET: /Account/ManageAccountData
-        public ActionResult ManageAccountData()
+        public ActionResult ManageAccountData(ManageDataMessageId? nessage)
         {
             //TODO:aktuellen Benutzer suchen
             var currentUserId = User.Identity.GetUserId();
@@ -348,8 +349,25 @@ namespace OnLib.Controllers
         // POST: /Account/ManageAccountData
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public Task<ActionResult> ManageAccountData(ManageUserDataViewModel ViewModel)
+        public ActionResult ManageAccountData(ManageUserDataViewModel ViewModel)
         {
+            if (ModelState.IsValid)
+            {
+                var currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.Find(currentUserId);
+                //db.Users.Remove(currentUser);
+                currentUser.Vorname = ViewModel.Vorname;
+                currentUser.Nachname = ViewModel.Nachname;
+                currentUser.Email = ViewModel.Email;
+                currentUser.Strasse = ViewModel.Strasse;
+                currentUser.HausNr = ViewModel.HausNr;
+                currentUser.PLZ = ViewModel.PLZ;
+                currentUser.Ort = ViewModel.Ort;
+                currentUser.Land = ViewModel.Land;
+                db.SaveChanges();
+                //db.Users.Add(currentUser);
+                return RedirectToAction("ManageAccountData", new { Message = ManageDataMessageId.ChangeDataSuccess });
+            }
             throw new NotImplementedException();
         }
 
