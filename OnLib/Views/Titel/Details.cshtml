@@ -117,6 +117,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Qualitaet)
                 </td>
+                <td>
+                    @Html.ActionLink("Ausleihen", "Leihen/" + item.Id, "Kopie")
+                </td>
             </tr>       
         }
     </table>

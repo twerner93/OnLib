@@ -21,7 +21,18 @@
             <div class="col-md-10">
                 @*@Html.DropDownList("KopieId", String.Empty)
                 @Html.ValidationMessageFor(model => model.KopieId)*@
-                @Html.Hidden(model => model.KopieId, Model.KopieId)
+                @*@Html.EditorFor(model => model.KopieId, Model.KopieId)*@
+                @{if (ViewBag.forKopie == false)
+                {
+                    @Html.DropDownList("KopieId", String.Empty)
+                    @Html.ValidationMessageFor(model => model.KopieId)
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Kopie.UserProfile.UserName)
+                    @Html.HiddenFor(model => model.KopieId, Model.Kopie)
+                }
+                }
             </div>
         </div>
 
