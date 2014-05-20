@@ -322,6 +322,13 @@ namespace OnLib.Controllers
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 
+        //
+        // GET: /Account/ManageAccountData
+        public ActionResult ManageAccountData()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UserExists(string username)
         {
             foreach (ApplicationUser item in db.Users)
