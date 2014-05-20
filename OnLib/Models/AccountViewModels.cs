@@ -80,5 +80,20 @@ namespace OnLib.Models
         [DataType(DataType.DateTime, ErrorMessage="Kein gültiges Datum.")]
         [Display(Name="Geburtstag")]
         public DateTime Geburtstag { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name="Straße")]
+        public string Strasse { get; set; }
+
+        [Display(Name="Hausnummer")]
+        public int HausNr { get; set; }
+
+        [DataType(DataType.PostalCode)]
+        [Display(Name="Postleitzahl")]
+        public int PLZ { get; set; }
+
+        [Display(Name="Ort")]
+        public string Ort { get; set; }
+
     }
 }

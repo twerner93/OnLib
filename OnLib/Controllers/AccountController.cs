@@ -57,6 +57,7 @@ namespace OnLib.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
+                    //TODO:Anzahl fehlerhafter Logins hochzählen
                 }
             }
 
@@ -85,6 +86,10 @@ namespace OnLib.Controllers
                                                    Vorname = model.Vorname,
                                                    Nachname = model.Nachname,
                                                    Geburtstag = model.Geburtstag,
+                                                   Strasse = model.Strasse,
+                                                   HausNr = model.HausNr,
+                                                   PLZ = model.PLZ,
+                                                   Ort = model.Ort,
                                                    RegistrationDate = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
