@@ -327,8 +327,32 @@ namespace OnLib.Controllers
         public ActionResult ManageAccountData()
         {
             //TODO:aktuellen Benutzer suchen
-            return View();
+            var currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.Find(currentUserId);
+            ManageUserDataViewModel ViewModel = new ManageUserDataViewModel
+            {
+                Vorname = currentUser.Vorname,
+                Nachname = currentUser.Nachname,
+                Email = currentUser.Email,
+                Geburtstag = currentUser.Geburtstag,
+                Strasse = currentUser.Strasse,
+                HausNr = currentUser.HausNr,
+                PLZ = currentUser.PLZ,
+                Ort = currentUser.Ort,
+                Land = currentUser.Land
+            };
+            return View(ViewModel);
         }
+
+        //
+        // POST: /Account/ManageAccountData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public Task<ActionResult> ManageAccountData(ManageUserDataViewModel ViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public bool UserExists(string username)
         {
@@ -402,6 +426,13 @@ namespace OnLib.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
+            Error
+        }
+
+        public enum ManageDataMessageId
+        {
+            ChangeDataSuccess,
+            SetDataSuccess,
             Error
         }
 

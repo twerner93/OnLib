@@ -285,6 +285,7 @@
     <Content Include="Views\Genre\Index.cshtml" />
     <Content Include="Views\Titel\Search.cshtml" />
     <Content Include="Views\Kopie\Leihen.cshtml" />
+    <Content Include="Views\Account\ManageAccountData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

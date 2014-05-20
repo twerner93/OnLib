@@ -1,0 +1,104 @@
+﻿@model OnLib.Models.ManageUserDataViewModel
+
+@{
+    ViewBag.Title = "ManageAccountData";
+}
+
+<h2>ManageAccountData</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ManageUserDataViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vorname, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vorname)
+                @Html.ValidationMessageFor(model => model.Vorname)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nachname, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nachname)
+                @Html.ValidationMessageFor(model => model.Nachname)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Geburtstag, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Geburtstag)
+                @Html.ValidationMessageFor(model => model.Geburtstag)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Strasse, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Strasse)
+                @Html.ValidationMessageFor(model => model.Strasse)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HausNr, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HausNr)
+                @Html.ValidationMessageFor(model => model.HausNr)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PLZ, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PLZ)
+                @Html.ValidationMessageFor(model => model.PLZ)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ort, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ort)
+                @Html.ValidationMessageFor(model => model.Ort)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Land, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Land)
+                @Html.ValidationMessageFor(model => model.Land)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
