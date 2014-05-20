@@ -95,5 +95,8 @@ namespace OnLib.Models
         [Display(Name="Ort")]
         public string Ort { get; set; }
 
+        [Display(Name="Land")]
+        public string Land { get; set; }
+
     }
 }
