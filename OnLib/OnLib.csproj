@@ -277,6 +277,14 @@
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Logo\Bib1.jpg" />
+    <Content Include="Logo\Bib2.jpg" />
+    <Content Include="Logo\Bibi3.jpg" />
+    <Content Include="Logo\Logo.jpg" />
+    <Content Include="Logo\Logo.png" />
+    <Content Include="Logo\LogoGrau.jpg" />
+    <Content Include="Logo\LogoHell.jpg" />
+    <Content Include="Logo\LogoKlein.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
