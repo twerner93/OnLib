@@ -166,6 +166,10 @@ namespace OnLib.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUserId = User.Identity.GetUserId();
+                leihe.Kopie = db.Kopies.FirstOrDefault(k => k.Id == leihe.KopieId);
+                leihe.UserProfile = db.Users.Find(currentUserId);
+                leihe.Zurueck = false;
                 db.Leihes.Add(leihe);
                 db.SaveChanges();
                 return RedirectToAction("Details/" + leihe.Kopie.TitelId, "Titel");
