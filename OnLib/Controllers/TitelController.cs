@@ -106,6 +106,21 @@ namespace OnLib.Controllers
                 LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
+            foreach (Kopie item in titelview.Kopies)
+            {
+                List<Leihe> leihen = db.Leihes.Where(l => l.KopieId == item.Id).ToList();
+                foreach (Leihe leihe in leihen)
+                {
+                    if (leihe.Zurueck == false)
+                    {
+                        item.Available = false;
+                    }
+                    else
+                    {
+                        item.Available = true;
+                    }
+                }
+            }
             return View(titelview);
         }
 
