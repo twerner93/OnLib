@@ -20,6 +20,9 @@
 <table class="table">
     <tr>
         <th>
+            &nbsp;
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Autor)
         </th>
         <th>
@@ -45,6 +48,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            <img src="@item.CoverPfad" height="20" />
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Autor.Nachname)
         </td>

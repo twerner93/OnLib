@@ -45,6 +45,7 @@ namespace OnLib.Controllers
                     Name = item.Name,
                     Kurzbeschreibung = item.Kurzbeschreibung,
                     Beschreibung = item.Beschreibung,
+                    CoverPfad = getCoverPath(item),
                     Erscheinung = item.Erscheinung,
                     Created = item.Created,
                     Modified = item.Modified,
@@ -100,6 +101,7 @@ namespace OnLib.Controllers
                 Name = titel.Name,
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
+                CoverPfad = getCoverPath(titel),
                 Erscheinung = titel.Erscheinung,
                 Created = titel.Created,
                 Modified = titel.Modified,
@@ -228,7 +230,7 @@ namespace OnLib.Controllers
             }
             titelview.GenreName = titel.Genre.Name;
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
+            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
             return View(titelview);
         }
@@ -332,6 +334,42 @@ namespace OnLib.Controllers
             return RedirectToAction("Create/"+titel.TitelId, "Kopie");
         }
 
+        // POST: /Titel/UploadCover/5
+        [HttpPost]
+        public ActionResult UploadCover(int TitelId)
+        {
+            //throw new NotImplementedException();
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    if (Request.Files[0].ContentLength > 0)
+                    {
+                        HttpPostedFileBase postedFile = Request.Files[0];
+                        string filename = System.IO.Path.GetFileName(Request.Files[0].FileName);
+                        string strLocation = HttpContext.Server.MapPath("~/images/titel");
+                        Request.Files[0].SaveAs(strLocation + @"\" + filename.Replace('+', '_'));
+                        Models.Titel titel = db.Titels.FirstOrDefault(t => t.TitelId == TitelId);
+                        titel.CoverPfad = @"\images\titel\" + filename;
+
+                        db.Entry(titel).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        return RedirectToAction("Edit", new { id = TitelId });
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    return Content(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return RedirectToAction("Edit", new { id = TitelId });
+        }
+
         // GET: /Titel/Exists
         public bool Exists(string name, int autorid)
         {
@@ -379,6 +417,7 @@ namespace OnLib.Controllers
                     Kurzbeschreibung = titel.Kurzbeschreibung,
                     Beschreibung = titel.Beschreibung,
                     Erscheinung = titel.Erscheinung,
+                    CoverPfad = getCoverPath(titel),
                     Created = titel.Created,
                     Modified = titel.Modified,
                     LastModifiedBy = titel.LastModifiedBy,
@@ -388,7 +427,6 @@ namespace OnLib.Controllers
             }
             return titelviews;
         }
-
 
         protected TitelViewModel titelToTitelViewModel(Titel titel)
         {
@@ -401,6 +439,7 @@ namespace OnLib.Controllers
                 Name = titel.Name,
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
+                CoverPfad = getCoverPath(titel),
                 Erscheinung = titel.Erscheinung,
                 Created = titel.Created,
                 Modified = titel.Modified,
@@ -408,6 +447,12 @@ namespace OnLib.Controllers
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
             return tvm;
+        }
+
+        protected string getCoverPath(Titel titel)
+        {
+            string path = titel.CoverPfad.Replace('\\', '/');
+            return path;
         }
     }
 }

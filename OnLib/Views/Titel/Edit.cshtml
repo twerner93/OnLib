@@ -67,10 +67,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GenreId, "Genre", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GenreName, "Genre", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("GenreId", String.Empty)
-                @Html.ValidationMessageFor(model => model.GenreId)
+                @Html.EditorFor(model => model.GenreName)
+                @Html.ValidationMessageFor(model => model.GenreName)
             </div>
         </div>
 
@@ -87,8 +87,16 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
+
+
     </div>
 }
+
+<form id="TitelCoverUploadForm" action="/Titel/UploadCover" method="post" name="TitelCoverUploadForm" enctype="multipart/form-data">
+    <input id="TitelId" type="hidden" name="TitelId" value="@Model.TitelId" />
+    <input id="imgUploadCover" title="Titel-Cover hochladen" type="file" name="imgUploadCover" />
+    <input title="Upload" type="submit" value="Upload" />
+</form>
 
 <div>
     @Html.ActionLink("Back to List", "Index")

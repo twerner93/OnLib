@@ -15,6 +15,7 @@ namespace OnLib.Models
         public string Name { get; set; }
         public string Kurzbeschreibung { get; set; }
         public string Beschreibung { get; set; }
+        public string CoverPfad { get; set; }
         public DateTime Erscheinung { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }

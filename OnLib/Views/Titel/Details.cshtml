@@ -19,7 +19,7 @@
         @Html.DisplayFor(model => model.Name)
     </h4>
 	<hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal col-md-7">
         <dt>
             @Html.DisplayNameFor(model => model.Autor)
         </dt>
@@ -90,11 +90,15 @@
             @Html.DisplayFor(model => model.Kopies.Count) &nbsp;
         </dd>
     </dl>
+    <div class="col-md-5">
+        <img src="@Model.CoverPfad" width="180" height="180" />
+    </div>
 </div>
+
 <div>@* Liste der Kopien *@
-    <p>
+    <div>
         @Html.ActionLink("Kopie hinzufügen", "AddKopie/"+Model.TitelId)
-    </p>
+    </div>
     <table class="table">
         <tr>
             <th>Besitzer</th>
