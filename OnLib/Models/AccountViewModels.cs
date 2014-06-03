@@ -29,6 +29,25 @@ namespace OnLib.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ManageUserDataViewModel
+    {
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        
+        [Required]
+        [Display(Name="Email-Adresse")]
+        public string Email { get; set; }
+
+        public DateTime Geburtstag { get; set; }
+
+        [Display(Name="Straße")]
+        public string Strasse { get; set; }
+        public int HausNr { get; set; }
+        public int PLZ { get; set; }
+        public string Ort { get; set; }
+        public string Land { get; set; }
+    }
+
     public class LoginViewModel
     {
         [Required]
@@ -80,5 +99,23 @@ namespace OnLib.Models
         [DataType(DataType.DateTime, ErrorMessage="Kein gültiges Datum.")]
         [Display(Name="Geburtstag")]
         public DateTime Geburtstag { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name="Straße")]
+        public string Strasse { get; set; }
+
+        [Display(Name="Hausnummer")]
+        public int HausNr { get; set; }
+
+        [DataType(DataType.PostalCode)]
+        [Display(Name="Postleitzahl")]
+        public int PLZ { get; set; }
+
+        [Display(Name="Ort")]
+        public string Ort { get; set; }
+
+        [Display(Name="Land")]
+        public string Land { get; set; }
+
     }
 }

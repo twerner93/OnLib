@@ -106,6 +106,25 @@ namespace OnLib.Controllers
                 LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
+            foreach (Kopie item in titelview.Kopies)
+            {
+                List<Leihe> leihen = db.Leihes.Where(l => l.KopieId == item.Id).ToList();
+                if (leihen.FirstOrDefault(l => l.KopieId == item.Id) == null)
+                {
+                    item.Available = true;
+                }
+                foreach (Leihe leihe in leihen)
+                {
+                    if (leihe.Zurueck == false)
+                    {
+                        item.Available = false;
+                    }
+                    else
+                    {
+                        item.Available = true;
+                    }
+                }
+            }
             return View(titelview);
         }
 
@@ -123,7 +142,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
+        public ActionResult Create([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreName,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
@@ -139,11 +158,23 @@ namespace OnLib.Controllers
                     }
                     new AutorController().Create(newAutor);
                 }
+                if (!new GenreController().Exists(titelview.GenreName))
+                {
+                    Genre newGenre = new Genre
+                    {
+                        Name = titelview.GenreName
+                    };
+                    new GenreController().Create(newGenre);
+                }
                 Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
-                Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+                Genre genre = db.Genres.Where(g => g.Name == titelview.GenreName).Single();
                 var currentUserId = User.Identity.GetUserId();
-
+                if (Exists(titelview.Name, autor.AutorId))
+                {
+                    Titel temp1 = db.Titels.FirstOrDefault(t => t.Name == titelview.Name && t.AutorId == autor.AutorId);
+                    return RedirectToAction("Create/" + temp1.TitelId, "Kopie");
+                }
                 Titel titel = new Titel
                 {
                     AutorId = autor.AutorId,
@@ -163,12 +194,14 @@ namespace OnLib.Controllers
 
                 db.Titels.Add(titel);
                 db.SaveChanges();
+
+                Titel temp2 = db.Titels.FirstOrDefault(t => t.Name == titel.Name && t.AutorId == titel.AutorId);
                 //return RedirectToAction("Index");
-                return RedirectToAction("CreateFor", "Kopie", db.Titels.Where(t => t.Name == titel.Name && t.Autor.Nachname == titel.Autor.Nachname).Single().TitelId);
+                return RedirectToAction("Create/" + temp2.TitelId, "Kopie");
             }
 
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
+            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
             return View(titelview);
         }
@@ -193,6 +226,7 @@ namespace OnLib.Controllers
             {
                 titelview.AutorVorname = titel.Autor.Vorname;
             }
+            titelview.GenreName = titel.Genre.Name;
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
             ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
@@ -204,20 +238,43 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreId,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
+        public ActionResult Edit([Bind(Include="TitelId,AutorNachname,AutorVorname,GenreName,TypId,Name,Kurzbeschreibung,Beschreibung,Erscheinung")] TitelViewModel titelview)
         {
             if (ModelState.IsValid)
             {
-                //TODO Autor hinzufügen...
+                if (!new AutorController().Exists(titelview.AutorNachname, titelview.AutorVorname))
+                {
+                    Autor newAutor = new Autor
+                    {
+                        Nachname = titelview.AutorNachname
+                    };
+                    if (!String.IsNullOrEmpty(titelview.AutorVorname))
+                    {
+                        newAutor.Vorname = titelview.AutorVorname;
+                    }
+                    new AutorController().Create(newAutor);
+                }
+
+                if (!new GenreController().Exists(titelview.GenreName))
+                {
+                    Genre newGenre = new Genre
+                    {
+                        Name = titelview.GenreName
+                    };
+
+                    new GenreController().Create(newGenre);
+                }
 
                 Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
-                Genre genre = db.Genres.Where(g => g.GenreId == titelview.GenreId).Single();
+                Genre genre = db.Genres.Where(g => g.Name == titelview.GenreName).Single();
                 var currentUserId = User.Identity.GetUserId();
 
                 Titel titel = db.Titels.Find(titelview.TitelId);
                 titel.Autor = autor;
+                titel.AutorId = autor.AutorId;
                 titel.Genre = genre;
+                titel.GenreId = genre.GenreId;
                 titel.Typ = typ;
                 titel.Modified = DateTime.Now;
                 titel.LastModifiedBy = db.Users.Find(currentUserId);
@@ -229,7 +286,7 @@ namespace OnLib.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
+            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titelview.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titelview.TypId);
             return View(titelview);
         }
@@ -258,6 +315,43 @@ namespace OnLib.Controllers
             db.Titels.Remove(titel);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: /Titel/AddKopie/5
+        public ActionResult AddKopie(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Titel titel = db.Titels.Find(id);
+            if (titel == null)
+            {
+                return HttpNotFound();
+            }
+            return RedirectToAction("Create/"+titel.TitelId, "Kopie");
+        }
+
+        // GET: /Titel/Exists
+        public bool Exists(string name, int autorid)
+        {
+            foreach (Titel item in db.Titels)
+            {
+                if (item.Name == name && item.AutorId == autorid)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult AutocompleteSuggestions(string genre)
+        {
+            var suggestions = from g in db.Genres
+                              select g.Name;
+            var genrelist = suggestions.Where(g => g.ToLower().StartsWith(genre.ToLower()));
+            return Json(genrelist, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

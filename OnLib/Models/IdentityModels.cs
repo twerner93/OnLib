@@ -10,6 +10,11 @@ namespace OnLib.Models
         public string Email { get; set; }
         public string Vorname { get; set; }
         public string Nachname { get; set; }
+        public string Strasse { get; set; }
+        public int HausNr { get; set; }
+        public int PLZ { get; set; }
+        public string Ort { get; set; }
+        public string Land { get; set; }
         public DateTime Geburtstag { get; set; }
         public DateTime RegistrationDate { get; set; }
     }
@@ -17,7 +22,7 @@ namespace OnLib.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+            : base("DefaultConnection", throwIfV1Schema:false)
         {
         }
 
@@ -26,5 +31,6 @@ namespace OnLib.Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Typ> Typs { get; set; }
         public DbSet<Kopie> Kopies { get; set; }
+        public DbSet<Leihe> Leihes { get; set; }
     }
 }

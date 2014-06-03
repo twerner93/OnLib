@@ -15,5 +15,7 @@ namespace OnLib.Models
 
         public virtual Titel Titel { get; set; }
         public virtual ApplicationUser UserProfile { get; set; }
+        public virtual ICollection<Leihe> Leihes { get; set; }
+        public virtual bool Available { get; set; }
     }
 }

@@ -34,11 +34,6 @@ namespace OnLib.Migrations
                 new Models.Typ { Name = "Film" },
                 new Models.Typ { Name = "Serie" }
             );
-
-            context.Genres.AddOrUpdate(
-                g => g.Name,
-                new Models.Genre { Name = "Rock", Typ = "Album" }
-            );
         }
     }
 }

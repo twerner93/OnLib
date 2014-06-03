@@ -25,9 +25,8 @@ namespace OnLib.Tests.Controllers
         public void GenreCreate()
         {
             GenreController controller = new GenreController();
-            controller.Create(new Models.Genre { Name = "TestGenre", Typ = "Album" });
-            Assert.IsTrue(controller.Exists("TestGenre", "Album"));
-            
+            controller.Create(new Models.Genre { Name = "TestGenre" });
+            Assert.IsTrue(controller.Exists("TestGenre"));
         }
     }
 }

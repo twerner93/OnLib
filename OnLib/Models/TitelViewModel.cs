@@ -9,12 +9,12 @@ namespace OnLib.Models
     public class TitelViewModel
     {
         public int TitelId { get; set; }
-        public int GenreId { get; set; }
         public int TypId { get; set; }
         
         [Required]
         public string AutorNachname { get; set; }
         public string AutorVorname { get; set; }
+        public string GenreName { get; set; }
         public string Name { get; set; }
         public string Kurzbeschreibung { get; set; }
         public string Beschreibung { get; set; }

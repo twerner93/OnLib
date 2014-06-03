@@ -12,6 +12,5 @@ namespace OnLib.Models
         public string Beschreibung { get; set; }
 
         public virtual ICollection<Titel> Titels { get; set; }
-        public virtual ICollection<Genre> Genres { get; set; }
     }
 }
