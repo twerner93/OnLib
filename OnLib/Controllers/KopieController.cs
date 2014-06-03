@@ -139,8 +139,14 @@ namespace OnLib.Controllers
         }
 
         // GET: /Kopie/Leihen/5
-        public ActionResult Leihen(int id)
+        public ActionResult Leihen(int? id)
         {
+            if (id == null)
+            {
+                ViewBag.KopieId = new SelectList(db.Kopies, "KopieId", "Name");
+                ViewBag.forKopie = false;
+                return View();
+            }
             Kopie kopie = db.Kopies.Find(id);
             var currentUserId = User.Identity.GetUserId();
             Leihe leihe = new Leihe
@@ -149,6 +155,7 @@ namespace OnLib.Controllers
                 KopieId = kopie.Id,
                 UserProfile = db.Users.Find(currentUserId)
             };
+            ViewBag.ForKopie = true;
             return View(leihe);
         }
 
@@ -159,6 +166,10 @@ namespace OnLib.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUserId = User.Identity.GetUserId();
+                leihe.Kopie = db.Kopies.FirstOrDefault(k => k.Id == leihe.KopieId);
+                leihe.UserProfile = db.Users.Find(currentUserId);
+                leihe.Zurueck = false;
                 db.Leihes.Add(leihe);
                 db.SaveChanges();
                 return RedirectToAction("Details/" + leihe.Kopie.TitelId, "Titel");

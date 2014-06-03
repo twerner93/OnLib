@@ -46,11 +46,11 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="GenreId,Typ,Name")] Genre genre)
+        public ActionResult Create([Bind(Include="GenreId,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                if (!Exists(genre.Name, genre.Typ))
+                if (!Exists(genre.Name))
                 {
                     db.Genres.Add(genre);
                     db.SaveChanges();
@@ -81,7 +81,7 @@ namespace OnLib.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="GenreId,Typ,Name")] Genre genre)
+        public ActionResult Edit([Bind(Include="GenreId,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
@@ -118,11 +118,11 @@ namespace OnLib.Controllers
             return RedirectToAction("Index");
         }
 
-        public bool Exists(string Name, string Typ)
+        public bool Exists(string Name)
         {
             foreach (Genre item in db.Genres)
             {
-                if (item.Name == Name && item.Typ == Typ)
+                if (item.Name == Name)
                 {
                     return true;
                 }

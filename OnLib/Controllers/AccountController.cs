@@ -57,6 +57,7 @@ namespace OnLib.Controllers
                 else
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
+                    //TODO:Anzahl fehlerhafter Logins hochzählen
                 }
             }
 
@@ -85,6 +86,11 @@ namespace OnLib.Controllers
                                                    Vorname = model.Vorname,
                                                    Nachname = model.Nachname,
                                                    Geburtstag = model.Geburtstag,
+                                                   Strasse = model.Strasse,
+                                                   HausNr = model.HausNr,
+                                                   PLZ = model.PLZ,
+                                                   Ort = model.Ort,
+                                                   Land = model.Land,
                                                    RegistrationDate = DateTime.Now
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -317,6 +323,55 @@ namespace OnLib.Controllers
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 
+        //
+        // GET: /Account/ManageAccountData
+        public ActionResult ManageAccountData(ManageDataMessageId? nessage)
+        {
+            //TODO:aktuellen Benutzer suchen
+            var currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.Find(currentUserId);
+            ManageUserDataViewModel ViewModel = new ManageUserDataViewModel
+            {
+                Vorname = currentUser.Vorname,
+                Nachname = currentUser.Nachname,
+                Email = currentUser.Email,
+                Geburtstag = currentUser.Geburtstag,
+                Strasse = currentUser.Strasse,
+                HausNr = currentUser.HausNr,
+                PLZ = currentUser.PLZ,
+                Ort = currentUser.Ort,
+                Land = currentUser.Land
+            };
+            return View(ViewModel);
+        }
+
+        //
+        // POST: /Account/ManageAccountData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageAccountData(ManageUserDataViewModel ViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUserId = User.Identity.GetUserId();
+                ApplicationUser currentUser = db.Users.Find(currentUserId);
+                //db.Users.Remove(currentUser);
+                currentUser.Vorname = ViewModel.Vorname;
+                currentUser.Nachname = ViewModel.Nachname;
+                currentUser.Email = ViewModel.Email;
+                currentUser.Strasse = ViewModel.Strasse;
+                currentUser.HausNr = ViewModel.HausNr;
+                currentUser.PLZ = ViewModel.PLZ;
+                currentUser.Ort = ViewModel.Ort;
+                currentUser.Land = ViewModel.Land;
+                db.SaveChanges();
+                //db.Users.Add(currentUser);
+                return RedirectToAction("ManageAccountData", new { Message = ManageDataMessageId.ChangeDataSuccess });
+            }
+            throw new NotImplementedException();
+        }
+
+
         public bool UserExists(string username)
         {
             foreach (ApplicationUser item in db.Users)
@@ -389,6 +444,13 @@ namespace OnLib.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
+            Error
+        }
+
+        public enum ManageDataMessageId
+        {
+            ChangeDataSuccess,
+            SetDataSuccess,
             Error
         }
 

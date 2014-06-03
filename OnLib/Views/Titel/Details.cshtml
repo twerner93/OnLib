@@ -101,6 +101,8 @@
             <th>Typ</th>
             <th>Ausgabe</th>
             <th>Qualität</th>
+            <th>Verfügbar</th>
+            <th>&nbsp;</th>
         </tr>
         @foreach (OnLib.Models.Kopie item in Model.Kopies)
         {
@@ -116,6 +118,18 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Qualitaet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Available)
+                </td>
+                <td>
+                    @{
+                        if (item.Available == true)
+                        {
+                            @Html.ActionLink("Ausleihen", "Leihen/" + item.Id, "Kopie")
+                        }
+                    }
+                    
                 </td>
             </tr>       
         }

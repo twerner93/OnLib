@@ -10,7 +10,6 @@ namespace OnLib.Models
     {
         public int LeiheId { get; set; }
         public int KopieId { get; set; }
-        public ApplicationUser UserProfile { get; set; }
         public DateTime Ausgeliehen { get; set; }
         
         [Display(Name = "Rückgabe")]
@@ -19,6 +18,7 @@ namespace OnLib.Models
         [Display(Name = "Zurück")]
         public bool Zurueck { get; set; }
 
+        public virtual ApplicationUser UserProfile { get; set; }
         public virtual Kopie Kopie { get; set; }
     }
 }
