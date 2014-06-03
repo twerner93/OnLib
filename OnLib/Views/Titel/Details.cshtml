@@ -79,7 +79,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Erscheinung) &nbsp;
+            @*@Html.DisplayFor(model => model.Erscheinung) &nbsp;*@
+            @Model.Erscheinung.ToShortDateString()
         </dd>
 
         <dt>

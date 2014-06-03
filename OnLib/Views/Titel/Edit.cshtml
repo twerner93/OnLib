@@ -81,6 +81,11 @@
                 @Html.ValidationMessageFor(model => model.Erscheinung)
             </div>
         </div>
+        
+        @if (!string.IsNullOrEmpty(Model.CoverPfad))
+        {
+            <img src="@Model.CoverPfad" height="100" />
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

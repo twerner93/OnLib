@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OnLib.Models.Leihe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kopie.Typ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ausgeliehen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rueckgabe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zurueck)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kopie.Typ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ausgeliehen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rueckgabe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zurueck)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LeiheId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LeiheId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LeiheId })
+        </td>
+    </tr>
+}
+
+</table>
