@@ -109,6 +109,10 @@ namespace OnLib.Controllers
             foreach (Kopie item in titelview.Kopies)
             {
                 List<Leihe> leihen = db.Leihes.Where(l => l.KopieId == item.Id).ToList();
+                if (leihen.FirstOrDefault(l => l.KopieId == item.Id) == null)
+                {
+                    item.Available = true;
+                }
                 foreach (Leihe leihe in leihen)
                 {
                     if (leihe.Zurueck == false)
