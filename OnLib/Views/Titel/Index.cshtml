@@ -49,7 +49,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            <img src="@item.CoverPfad" height="20" />
+            @{
+                if(String.IsNullOrEmpty(item.CoverPfad))
+                {
+                    <img src="~/images/titel/default.jpg" height="20" />
+                }
+                else 
+                {
+                    <img src="@item.CoverPfad" height="20" />
+                }
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Autor.Nachname)

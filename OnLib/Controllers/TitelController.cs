@@ -199,7 +199,9 @@ namespace OnLib.Controllers
 
                 Titel temp2 = db.Titels.FirstOrDefault(t => t.Name == titel.Name && t.AutorId == titel.AutorId);
                 //return RedirectToAction("Index");
-                return RedirectToAction("Create/" + temp2.TitelId, "Kopie");
+                //TODO RedirectToAction --> Cover-Upload
+                return RedirectToAction("UploadCover", new { TitelId = temp2.TitelId });
+                //return RedirectToAction("Create/" + temp2.TitelId, "Kopie");
             }
 
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
@@ -334,9 +336,18 @@ namespace OnLib.Controllers
             return RedirectToAction("Create/"+titel.TitelId, "Kopie");
         }
 
+        // GET: /Titel/UploadCover/5
+        public ActionResult UploadCover(int TitelId)
+        {
+            CoverUploadModel model = new CoverUploadModel();
+            model.TitelId = TitelId;
+            model.Neu = true;
+            return View(model);
+        }
+
         // POST: /Titel/UploadCover/5
         [HttpPost]
-        public ActionResult UploadCover(int TitelId)
+        public ActionResult UploadCover(CoverUploadModel model)
         {
             //throw new NotImplementedException();
             if (Request.Files.Count > 0)
@@ -349,13 +360,17 @@ namespace OnLib.Controllers
                         string filename = System.IO.Path.GetFileName(Request.Files[0].FileName);
                         string strLocation = HttpContext.Server.MapPath("~/images/titel");
                         Request.Files[0].SaveAs(strLocation + @"\" + filename.Replace('+', '_'));
-                        Models.Titel titel = db.Titels.FirstOrDefault(t => t.TitelId == TitelId);
+                        Models.Titel titel = db.Titels.FirstOrDefault(t => t.TitelId == model.TitelId);
                         titel.CoverPfad = @"\images\titel\" + filename;
 
                         db.Entry(titel).State = EntityState.Modified;
                         db.SaveChanges();
 
-                        return RedirectToAction("Edit", new { id = TitelId });
+                        if (model.Neu == true)
+                        {
+                            return RedirectToAction("Create/" + model.TitelId, "Kopie");
+                        }
+                        return RedirectToAction("Edit", new { id = model.TitelId});
                     }
                 }
                 catch (FormatException ex)
@@ -367,7 +382,7 @@ namespace OnLib.Controllers
                     throw ex;
                 }
             }
-            return RedirectToAction("Edit", new { id = TitelId });
+            return RedirectToAction("Edit", new { id = model.TitelId });
         }
 
         // GET: /Titel/Exists
@@ -451,8 +466,11 @@ namespace OnLib.Controllers
 
         protected string getCoverPath(Titel titel)
         {
-            string path = titel.CoverPfad.Replace('\\', '/');
-            return path;
+            if (titel.CoverPfad != null)
+            {
+                return titel.CoverPfad.Replace('\\', '/');
+            }
+            return null;                
         }
     }
 }

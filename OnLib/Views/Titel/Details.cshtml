@@ -92,7 +92,16 @@
         </dd>
     </dl>
     <div class="col-md-5">
-        <img src="@Model.CoverPfad" width="180" height="180" />
+        @{
+            if (String.IsNullOrEmpty(Model.CoverPfad))
+            {
+                <img src="~/images/Titel/default.jpg" width="180" height="180" />
+            }
+            else
+            {
+                <img src="@Model.CoverPfad" width="180" height="180" />
+            }
+        }
     </div>
 </div>
 
