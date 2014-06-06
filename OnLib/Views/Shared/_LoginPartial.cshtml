@@ -9,7 +9,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hallo @User.Identity.GetUserName()!<b class="caret"></b></a>
     <ul class="dropdown-menu">
         <li>@Html.ActionLink("Meine Medien", "MyMedia", "Titel")</li>
-        <li>@Html.ActionLink("Geliehene Titel", "Rents", "Leihe")</li>
+        <li>@Html.ActionLink("Geliehene Titel", "Rents", "Titel")</li>
         <li>@Html.ActionLink("Daten bearbeiten", "ManageAccountData", "Account")</li>
         <li>@Html.ActionLink("Passwort ändern", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Verwalten" })</li>
     </ul>

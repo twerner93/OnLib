@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OnLib.Models.Leihe>
+
+@{
+    ViewBag.Title = "Geliehene Titel";
+}
+
+<h2>Geliehene Titel</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Kopie.Titel.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ausgeliehen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rueckgabe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zurueck)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kopie.Titel.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ausgeliehen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rueckgabe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zurueck)
+        </td>
+        <td>
+            @{
+                if (!item.Zurueck)
+                {
+                    @Html.ActionLink("Zurückgeben", "Back/"+item.LeiheId)        
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

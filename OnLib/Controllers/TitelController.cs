@@ -168,7 +168,7 @@ namespace OnLib.Controllers
                     };
                     new GenreController().Create(newGenre);
                 }
-                Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
+                Autor autor = db.Autors.FirstOrDefault(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname));
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
                 Genre genre = db.Genres.Where(g => g.Name == titelview.GenreName).Single();
                 var currentUserId = User.Identity.GetUserId();
@@ -190,6 +190,7 @@ namespace OnLib.Controllers
                     Beschreibung = titelview.Beschreibung,
                     Erscheinung = titelview.Erscheinung,
                     Created = DateTime.Now,
+                    CreatedBy = db.Users.Find(currentUserId),
                     Modified = DateTime.Now,
                     LastModifiedBy = db.Users.Find(currentUserId)
                 };
@@ -414,6 +415,19 @@ namespace OnLib.Controllers
         // GET: /Titel/Rents
         public ActionResult Rents()
         {
+            var currentUserId = User.Identity.GetUserId();
+            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == currentUserId).ToList();
+            foreach (Leihe item in rents)
+            {
+                item.Kopie = db.Kopies.Find(item.KopieId);
+                item.Kopie.Titel = db.Titels.Find(item.Kopie.TitelId);
+            }
+            return View(rents);
+        }
+
+        // GET: /Titel/Back
+        public ActionResult Back(int id)
+        {
             throw new NotImplementedException();
         }
 
@@ -466,6 +480,7 @@ namespace OnLib.Controllers
                     Erscheinung = titel.Erscheinung,
                     CoverPfad = getCoverPath(titel),
                     Created = titel.Created,
+                    CreatedBy = titel.CreatedBy,
                     Modified = titel.Modified,
                     LastModifiedBy = titel.LastModifiedBy,
                     Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
@@ -489,6 +504,7 @@ namespace OnLib.Controllers
                 CoverPfad = getCoverPath(titel),
                 Erscheinung = titel.Erscheinung,
                 Created = titel.Created,
+                CreatedBy = titel.CreatedBy,
                 Modified = titel.Modified,
                 LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
