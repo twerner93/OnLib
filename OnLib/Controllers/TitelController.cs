@@ -385,6 +385,38 @@ namespace OnLib.Controllers
             return RedirectToAction("Edit", new { id = model.TitelId });
         }
 
+        // GET: /Titel/MyMedia
+        public ActionResult MyMedia()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            //TODO Benutzer holen und alle Titel des Benutzers
+            List<Kopie> kopies = db.Kopies.Where(k => k.UserProfile.Id == currentUserId).ToList();
+            List<KopieViewModel> titels = new List<KopieViewModel>();
+            foreach (Kopie item in kopies)
+            {
+                Titel temp = db.Titels.Find(item.TitelId);
+                KopieViewModel kopie = new KopieViewModel
+                {
+                    KopieId = item.Id,
+                    TitelId = temp.TitelId,
+                    TitelName = temp.Name,
+                    AutorName = temp.Autor.Nachname,
+                    Typ = item.Typ,
+                    Ausgabe = item.Ausgabe,
+                    Qualitaet = item.Qualitaet
+                };
+                kopie.CoverPfad = getCoverPath(temp);
+                titels.Add(kopie);
+            }
+            return View(titels);
+        }
+
+        // GET: /Titel/Rents
+        public ActionResult Rents()
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: /Titel/Exists
         public bool Exists(string name, int autorid)
         {

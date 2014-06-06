@@ -297,6 +297,7 @@
     <Content Include="Views\Account\ManageAccountData.cshtml" />
     <Content Include="Views\Leihe\Index.cshtml" />
     <Content Include="Views\Titel\UploadCover.cshtml" />
+    <Content Include="Views\Titel\MyMedia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
