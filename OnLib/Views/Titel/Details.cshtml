@@ -152,4 +152,10 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.TitelId }) |
     @Html.ActionLink("Back to List", "Index")
+    @{
+        @*if (Model.CreatedBy.Id == ViewBag.currentUserId)
+        {
+            @Html.ActionLink("Löschen", "Delete")
+        }*@
+    }
 </p>

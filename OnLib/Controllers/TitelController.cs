@@ -48,6 +48,7 @@ namespace OnLib.Controllers
                     CoverPfad = getCoverPath(item),
                     Erscheinung = item.Erscheinung,
                     Created = item.Created,
+                    CreatedBy = item.CreatedBy,
                     Modified = item.Modified,
                     LastModifiedBy = item.LastModifiedBy,
                     Kopies = db.Kopies.Where(k => k.TitelId == item.TitelId).ToList()
@@ -104,6 +105,7 @@ namespace OnLib.Controllers
                 CoverPfad = getCoverPath(titel),
                 Erscheinung = titel.Erscheinung,
                 Created = titel.Created,
+                CreatedBy = titel.CreatedBy,
                 Modified = titel.Modified,
                 LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
@@ -127,6 +129,8 @@ namespace OnLib.Controllers
                     }
                 }
             }
+            var currentUserId = User.Identity.GetUserId();
+            ViewBag.currentUserId = currentUserId;
             return View(titelview);
         }
 
