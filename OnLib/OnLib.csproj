@@ -195,7 +195,6 @@
     <Compile Include="Models\Kopie.cs" />
     <Compile Include="Models\KopieViewModel.cs" />
     <Compile Include="Models\Leihe.cs" />
-    <Compile Include="Models\RentViewModel.cs" />
     <Compile Include="Models\Titel.cs" />
     <Compile Include="Models\TitelViewModel.cs" />
     <Compile Include="Models\Typ.cs" />
