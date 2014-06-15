@@ -5,8 +5,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace OnLib.Controllers
 {
+    [Authorize]
     public class LeiheController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -15,6 +19,11 @@ namespace OnLib.Controllers
         // GET: /Leihe/
         public ActionResult Index()
         {
+            var currentUserId = User.Identity.GetUserId();
+            ApplicationUser UserProfile = db.Users.Find(currentUserId);
+
+            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == UserProfile.Id).ToList();
+
             return View();
         }
 

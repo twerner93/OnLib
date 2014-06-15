@@ -1,0 +1,47 @@
+﻿@model OnLib.Models.CoverUploadModel
+
+@{
+    ViewBag.Title = "UploadCover";
+}
+
+<h2>Cover hochladen</h2>
+
+@*<form id="CoverUploadForm" action="/Titel/UploadCover" method="post" name="CoverUploadForm" enctype="multipart/form-data">
+    <input id="TitelId" type="hidden" name="TitelId" value="@Model.TitelId" />
+    <h2>@Model.TitelId, @Model.Neu</h2>
+    <input id="Neu" type="hidden" name="Neu" value="@Model.Neu" />
+    <div class="form-group">
+        <input id="imgUploadCover" title="Titel-Cover hochladen" type="file" name="imgUploadCover" />
+    </div>
+
+    <div class="form-group">
+        <input title="Upload" type="submit" value="Upload" />
+    </div>
+
+</form>*@
+
+
+@using (Html.BeginForm("UploadCover", "Titel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TitelId)
+    @Html.HiddenFor(model => model.Neu)
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.File, new { type = "file" })
+    </div>
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("Überspringen", "Create/"+@Model.TitelId, "Kopie")
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -10,15 +10,11 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@*<p>
-    @Html.ActionLink("Alle", "All", "Titel") | @Html.ActionLink("Album", "Album", "Titel/All") | @Html.ActionLink("Buch", "Buch", "Titel/All") | @Html.ActionLink("Film", "Film", "Titel/All")
-    | @Html.ActionLink("Serie", "Serie", "Titel/All")
-</p>*@
-
-
-
 <table class="table">
     <tr>
+        <th>
+            &nbsp;
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Autor)
         </th>
@@ -45,6 +41,18 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @{
+                if(String.IsNullOrEmpty(item.CoverPfad))
+                {
+                    <img src="~/images/titel/default.jpg" height="20" />
+                }
+                else 
+                {
+                    <img src="@item.CoverPfad" height="20" />
+                }
+            }
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Autor.Nachname)
         </td>

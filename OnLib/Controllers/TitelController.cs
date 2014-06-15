@@ -45,8 +45,10 @@ namespace OnLib.Controllers
                     Name = item.Name,
                     Kurzbeschreibung = item.Kurzbeschreibung,
                     Beschreibung = item.Beschreibung,
+                    CoverPfad = getCoverPath(item),
                     Erscheinung = item.Erscheinung,
                     Created = item.Created,
+                    CreatedBy = item.CreatedBy,
                     Modified = item.Modified,
                     LastModifiedBy = item.LastModifiedBy,
                     Kopies = db.Kopies.Where(k => k.TitelId == item.TitelId).ToList()
@@ -100,8 +102,10 @@ namespace OnLib.Controllers
                 Name = titel.Name,
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
+                CoverPfad = getCoverPath(titel),
                 Erscheinung = titel.Erscheinung,
                 Created = titel.Created,
+                CreatedBy = titel.CreatedBy,
                 Modified = titel.Modified,
                 LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
@@ -125,6 +129,8 @@ namespace OnLib.Controllers
                     }
                 }
             }
+            var currentUserId = User.Identity.GetUserId();
+            ViewBag.currentUserId = currentUserId;
             return View(titelview);
         }
 
@@ -166,7 +172,7 @@ namespace OnLib.Controllers
                     };
                     new GenreController().Create(newGenre);
                 }
-                Autor autor = db.Autors.Where(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname)).Single();
+                Autor autor = db.Autors.FirstOrDefault(a => a.Nachname == titelview.AutorNachname && (String.IsNullOrEmpty(titelview.AutorVorname) || a.Vorname == titelview.AutorVorname));
                 Typ typ = db.Typs.Where(t => t.TypId == titelview.TypId).Single();
                 Genre genre = db.Genres.Where(g => g.Name == titelview.GenreName).Single();
                 var currentUserId = User.Identity.GetUserId();
@@ -188,6 +194,7 @@ namespace OnLib.Controllers
                     Beschreibung = titelview.Beschreibung,
                     Erscheinung = titelview.Erscheinung,
                     Created = DateTime.Now,
+                    CreatedBy = db.Users.Find(currentUserId),
                     Modified = DateTime.Now,
                     LastModifiedBy = db.Users.Find(currentUserId)
                 };
@@ -197,7 +204,9 @@ namespace OnLib.Controllers
 
                 Titel temp2 = db.Titels.FirstOrDefault(t => t.Name == titel.Name && t.AutorId == titel.AutorId);
                 //return RedirectToAction("Index");
-                return RedirectToAction("Create/" + temp2.TitelId, "Kopie");
+                //TODO RedirectToAction --> Cover-Upload
+                return RedirectToAction("UploadCover", new { TitelId = temp2.TitelId });
+                //return RedirectToAction("Create/" + temp2.TitelId, "Kopie");
             }
 
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titelview.AutorId);
@@ -228,7 +237,7 @@ namespace OnLib.Controllers
             }
             titelview.GenreName = titel.Genre.Name;
             //ViewBag.AutorId = new SelectList(db.Autors, "AutorId", "Nachname", titel.AutorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
+            //ViewBag.GenreId = new SelectList(db.Genres, "GenreId", "Name", titel.GenreId);
             ViewBag.TypId = new SelectList(db.Typs, "TypId", "Name", titel.TypId);
             return View(titelview);
         }
@@ -332,6 +341,100 @@ namespace OnLib.Controllers
             return RedirectToAction("Create/"+titel.TitelId, "Kopie");
         }
 
+        // GET: /Titel/UploadCover/5
+        public ActionResult UploadCover(int TitelId)
+        {
+            CoverUploadModel model = new CoverUploadModel();
+            model.TitelId = TitelId;
+            model.Neu = true;
+            return View(model);
+        }
+
+        // POST: /Titel/UploadCover/5
+        [HttpPost]
+        public ActionResult UploadCover(CoverUploadModel model)
+        {
+            //throw new NotImplementedException();
+            if (Request.Files.Count > 0)
+            {
+                try
+                {
+                    if (Request.Files[0].ContentLength > 0)
+                    {
+                        HttpPostedFileBase postedFile = Request.Files[0];
+                        string filename = System.IO.Path.GetFileName(Request.Files[0].FileName);
+                        string strLocation = HttpContext.Server.MapPath("~/images/titel");
+                        Request.Files[0].SaveAs(strLocation + @"\" + filename.Replace('+', '_'));
+                        Models.Titel titel = db.Titels.FirstOrDefault(t => t.TitelId == model.TitelId);
+                        titel.CoverPfad = @"\images\titel\" + filename;
+
+                        db.Entry(titel).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        if (model.Neu == true)
+                        {
+                            return RedirectToAction("Create/" + model.TitelId, "Kopie");
+                        }
+                        return RedirectToAction("Edit", new { id = model.TitelId});
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    return Content(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return RedirectToAction("Edit", new { id = model.TitelId });
+        }
+
+        // GET: /Titel/MyMedia
+        public ActionResult MyMedia()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            //TODO Benutzer holen und alle Titel des Benutzers
+            List<Kopie> kopies = db.Kopies.Where(k => k.UserProfile.Id == currentUserId).ToList();
+            List<KopieViewModel> titels = new List<KopieViewModel>();
+            foreach (Kopie item in kopies)
+            {
+                Titel temp = db.Titels.Find(item.TitelId);
+                KopieViewModel kopie = new KopieViewModel
+                {
+                    KopieId = item.Id,
+                    TitelId = temp.TitelId,
+                    TitelName = temp.Name,
+                    AutorName = temp.Autor.Nachname,
+                    Typ = item.Typ,
+                    Ausgabe = item.Ausgabe,
+                    Qualitaet = item.Qualitaet
+                };
+                kopie.CoverPfad = getCoverPath(temp);
+                titels.Add(kopie);
+            }
+            return View(titels);
+        }
+
+        // GET: /Titel/Rents
+        public ActionResult Rents()
+        {
+            var currentUserId = User.Identity.GetUserId();
+            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == currentUserId).ToList();
+            foreach (Leihe item in rents)
+            {
+                item.Kopie = db.Kopies.Find(item.KopieId);
+                item.Kopie.Titel = db.Titels.Find(item.Kopie.TitelId);
+            }
+            return View(rents);
+        }
+
+        // GET: /Titel/Back
+        public ActionResult Back(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: /Titel/Exists
         public bool Exists(string name, int autorid)
         {
@@ -379,7 +482,9 @@ namespace OnLib.Controllers
                     Kurzbeschreibung = titel.Kurzbeschreibung,
                     Beschreibung = titel.Beschreibung,
                     Erscheinung = titel.Erscheinung,
+                    CoverPfad = getCoverPath(titel),
                     Created = titel.Created,
+                    CreatedBy = titel.CreatedBy,
                     Modified = titel.Modified,
                     LastModifiedBy = titel.LastModifiedBy,
                     Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
@@ -388,7 +493,6 @@ namespace OnLib.Controllers
             }
             return titelviews;
         }
-
 
         protected TitelViewModel titelToTitelViewModel(Titel titel)
         {
@@ -401,13 +505,24 @@ namespace OnLib.Controllers
                 Name = titel.Name,
                 Kurzbeschreibung = titel.Kurzbeschreibung,
                 Beschreibung = titel.Beschreibung,
+                CoverPfad = getCoverPath(titel),
                 Erscheinung = titel.Erscheinung,
                 Created = titel.Created,
+                CreatedBy = titel.CreatedBy,
                 Modified = titel.Modified,
                 LastModifiedBy = titel.LastModifiedBy,
                 Kopies = db.Kopies.Where(k => k.TitelId == titel.TitelId).ToList()
             };
             return tvm;
+        }
+
+        protected string getCoverPath(Titel titel)
+        {
+            if (titel.CoverPfad != null)
+            {
+                return titel.CoverPfad.Replace('\\', '/');
+            }
+            return null;                
         }
     }
 }
