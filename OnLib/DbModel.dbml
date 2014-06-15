@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnet-OnLib" Class="DbModelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-OnLib.mdf;Initial Catalog=aspnet-OnLib;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AspNetRoles" Member="AspNetRoles">
+    <Type Name="AspNetRoles">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Association Name="AspNetRoles_AspNetUserRoles" Member="AspNetUserRoles" ThisKey="Id" OtherKey="RoleId" Type="AspNetUserRoles" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserClaims" Member="AspNetUserClaims">
+    <Type Name="AspNetUserClaims">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="ClaimType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClaimValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="AspNetUsers_AspNetUserClaims" Member="AspNetUsers" ThisKey="UserId" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserLogins" Member="AspNetUserLogins">
+    <Type Name="AspNetUserLogins">
+      <Column Name="LoginProvider" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProviderKey" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="AspNetUsers_AspNetUserLogins" Member="AspNetUsers" ThisKey="UserId" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserRoles" Member="AspNetUserRoles">
+    <Type Name="AspNetUserRoles">
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="AspNetRoles_AspNetUserRoles" Member="AspNetRoles" ThisKey="RoleId" OtherKey="Id" Type="AspNetRoles" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="AspNetUsers_AspNetUserRoles" Member="AspNetUsers" ThisKey="UserId" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUsers" Member="AspNetUsers">
+    <Type Name="AspNetUsers">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Vorname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Nachname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Strasse" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HausNr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PLZ" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ort" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Land" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Geburtstag" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EmailConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SecurityStamp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumberConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TwoFactorEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LockoutEndDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockoutEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccessFailedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Association Name="AspNetUsers_AspNetUserClaims" Member="AspNetUserClaims" ThisKey="Id" OtherKey="UserId" Type="AspNetUserClaims" />
+      <Association Name="AspNetUsers_AspNetUserLogins" Member="AspNetUserLogins" ThisKey="Id" OtherKey="UserId" Type="AspNetUserLogins" />
+      <Association Name="AspNetUsers_AspNetUserRoles" Member="AspNetUserRoles" ThisKey="Id" OtherKey="UserId" Type="AspNetUserRoles" />
+      <Association Name="AspNetUsers_Kopies" Member="Kopies" ThisKey="Id" OtherKey="UserProfile_Id" Type="Kopies" />
+      <Association Name="AspNetUsers_Leihes" Member="Leihes" ThisKey="Id" OtherKey="UserProfile_Id" Type="Leihes" />
+      <Association Name="AspNetUsers_Titels" Member="Titels" ThisKey="Id" OtherKey="CreatedBy_Id" Type="Titels" />
+      <Association Name="AspNetUsers_Titels1" Member="Titels1" ThisKey="Id" OtherKey="LastModifiedBy_Id" Type="Titels" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Autors" Member="Autors">
+    <Type Name="Autors">
+      <Column Name="AutorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nachname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Vorname" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Sonstiges" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Autors_Titels" Member="Titels" ThisKey="AutorId" OtherKey="AutorId" Type="Titels" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Genres" Member="Genres">
+    <Type Name="Genres">
+      <Column Name="GenreId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Genres_Titels" Member="Titels" ThisKey="GenreId" OtherKey="GenreId" Type="Titels" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Kopies" Member="Kopies">
+    <Type Name="Kopies">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TitelId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Typ" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Ausgabe" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Qualitaet" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserProfile_Id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Available" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Kopies_Leihes" Member="Leihes" ThisKey="Id" OtherKey="KopieId" Type="Leihes" />
+      <Association Name="AspNetUsers_Kopies" Member="AspNetUsers" ThisKey="UserProfile_Id" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+      <Association Name="Titels_Kopies" Member="Titels" ThisKey="TitelId" OtherKey="TitelId" Type="Titels" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Leihes" Member="Leihes">
+    <Type Name="Leihes">
+      <Column Name="LeiheId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="KopieId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ausgeliehen" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Rueckgabe" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Zurueck" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UserProfile_Id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Association Name="AspNetUsers_Leihes" Member="AspNetUsers" ThisKey="UserProfile_Id" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+      <Association Name="Kopies_Leihes" Member="Kopies" ThisKey="KopieId" OtherKey="Id" Type="Kopies" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Titels" Member="Titels">
+    <Type Name="Titels">
+      <Column Name="TitelId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AutorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GenreId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TypId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Kurzbeschreibung" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Beschreibung" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Erscheinung" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Modified" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastModifiedBy_Id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="CoverPfad" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedBy_Id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Association Name="Titels_Kopies" Member="Kopies" ThisKey="TitelId" OtherKey="TitelId" Type="Kopies" />
+      <Association Name="AspNetUsers_Titels" Member="AspNetUsers" ThisKey="CreatedBy_Id" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+      <Association Name="AspNetUsers_Titels1" Member="AspNetUsers1" ThisKey="LastModifiedBy_Id" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+      <Association Name="Autors_Titels" Member="Autors" ThisKey="AutorId" OtherKey="AutorId" Type="Autors" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Genres_Titels" Member="Genres" ThisKey="GenreId" OtherKey="GenreId" Type="Genres" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Typs_Titels" Member="Typs" ThisKey="TypId" OtherKey="TypId" Type="Typs" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Typs" Member="Typs">
+    <Type Name="Typs">
+      <Column Name="TypId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Beschreibung" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Typs_Titels" Member="Titels" ThisKey="TypId" OtherKey="TypId" Type="Titels" />
+    </Type>
+  </Table>
+</Database>

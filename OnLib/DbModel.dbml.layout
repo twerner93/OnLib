@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13.625, 8.5" name="DbModel">
+  <DataContextMoniker Name="/DbModelDataContext" />
+  <nestedChildShapes>
+    <classShape Id="edd57ae9-5b89-4c20-b031-4686379064c2" absoluteBounds="11.375, 5, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/DbModelDataContext/AspNetRoles" />
+      <nestedChildShapes>
+        <elementListCompartment Id="679b3c9f-49d1-4d3f-af38-0e153a0c581b" absoluteBounds="11.39, 5.4600000000000009, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4407066d-6a5c-4a5e-85e8-c5f9285645da" absoluteBounds="6.125, 5.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DbModelDataContext/AspNetUserClaims" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6534ac90-cd58-4024-b7f9-253ee3f9b6cd" absoluteBounds="6.1400000000000006, 6.0850000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="127b191c-4015-4abc-8442-3caba1a3201d" absoluteBounds="6.125, 3.875, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/DbModelDataContext/AspNetUserLogins" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a0beb5ed-8b60-40e7-b7d0-e2680db271a3" absoluteBounds="6.1400000000000006, 4.3350000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="09bc2ce9-a4aa-42c1-9a77-7d07d6e398ec" absoluteBounds="11.375, 2.875, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/DbModelDataContext/AspNetUserRoles" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e3042749-23e2-4313-9fd3-7bd90863c3c4" absoluteBounds="11.39, 3.3350000000000009, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(12.375 : 5); (12.375 : 4.06899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetRoles/AspNetRoles_AspNetUserRoles" />
+      <nodes>
+        <classShapeMoniker Id="edd57ae9-5b89-4c20-b031-4686379064c2" />
+        <classShapeMoniker Id="09bc2ce9-a4aa-42c1-9a77-7d07d6e398ec" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" absoluteBounds="8.875, 2.25, 2, 4.8477197265624978">
+      <DataClassMoniker Name="/DbModelDataContext/AspNetUsers" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bf89d519-e5a2-4af5-9c42-aacb19f678f3" absoluteBounds="8.89, 2.71, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.875 : 6.36135986328125); (8.125 : 6.36135986328125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_AspNetUserClaims" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="4407066d-6a5c-4a5e-85e8-c5f9285645da" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.875 : 4.56814697265625); (8.125 : 4.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_AspNetUserLogins" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="127b191c-4015-4abc-8442-3caba1a3201d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(10.875 : 3.47199625651042); (11.375 : 3.47199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_AspNetUserRoles" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="09bc2ce9-a4aa-42c1-9a77-7d07d6e398ec" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c9c4a44d-8ea8-4122-a2cb-f9f584c0c08a" absoluteBounds="0.5, 3.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DbModelDataContext/Autors" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae5f77cc-1e75-45cc-a217-49b7dc3a3e01" absoluteBounds="0.51500000000000057, 3.9600000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f2605c6a-5f06-4d49-960d-a11167f82a57" absoluteBounds="0.5, 0.5, 2, 1.1939925130208327">
+      <DataClassMoniker Name="/DbModelDataContext/Genres" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fbf99666-2358-4855-b98e-ca4e6aca4a6f" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cb02d7e4-c2d2-450e-9e19-89985f682504" absoluteBounds="6.25, 0.5, 2, 2.1554996744791675">
+      <DataClassMoniker Name="/DbModelDataContext/Kopies" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7d653408-b527-4649-bf83-8051257dfcce" absoluteBounds="6.2650000000000006, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.875 : 2.45274983723958); (8.25 : 2.45274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_Kopies" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="cb02d7e4-c2d2-450e-9e19-89985f682504" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c3813543-a660-4e67-a638-239265b8977c" absoluteBounds="11.375, 0.5, 2, 1.9631982421874987">
+      <DataClassMoniker Name="/DbModelDataContext/Leihes" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c4ce93c5-ab4b-4c91-be7e-13726a4cfdcf" absoluteBounds="11.39, 0.96000000000000085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9.875 : 2.25); (9.875 : 1.48159912109375); (11.375 : 1.48159912109375)]" fixedFrom="Algorithm" fixedTo="NotFixed">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_Leihes" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="c3813543-a660-4e67-a638-239265b8977c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 1.23740069889323); (11.375 : 1.23740069889323)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/Kopies/Kopies_Leihes" />
+      <nodes>
+        <classShapeMoniker Id="cb02d7e4-c2d2-450e-9e19-89985f682504" />
+        <classShapeMoniker Id="c3813543-a660-4e67-a638-239265b8977c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" absoluteBounds="3.5, 1.125, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/DbModelDataContext/Titels" />
+      <nestedChildShapes>
+        <elementListCompartment Id="deba6b25-9bda-4c80-93b8-e3f2ad45fcbd" absoluteBounds="3.5149999999999997, 1.585, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 1.89024983723958); (6.25 : 1.89024983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/Titels/Titels_Kopies" />
+      <nodes>
+        <classShapeMoniker Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" />
+        <classShapeMoniker Id="cb02d7e4-c2d2-450e-9e19-89985f682504" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.875 : 3.51103841145833); (5.5 : 3.51103841145833)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_Titels" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.875 : 3.08457682291667); (5.5 : 3.08457682291667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/AspNetUsers/AspNetUsers_Titels1" />
+      <nodes>
+        <classShapeMoniker Id="17413789-00dd-48c8-ba2a-a74a5fe5424e" />
+        <classShapeMoniker Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 3.96715413411458); (3.5 : 3.96715413411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/Autors/Autors_Titels" />
+      <nodes>
+        <classShapeMoniker Id="c9c4a44d-8ea8-4122-a2cb-f9f584c0c08a" />
+        <classShapeMoniker Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 1.40949625651042); (3.5 : 1.40949625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/Genres/Genres_Titels" />
+      <nodes>
+        <classShapeMoniker Id="f2605c6a-5f06-4d49-960d-a11167f82a57" />
+        <classShapeMoniker Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f7377c1d-2aa1-41cb-aa83-13891d48dbd4" absoluteBounds="0.5, 1.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/DbModelDataContext/Typs" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b7307fa5-7f41-4c9e-a414-2f8829f4dfa8" absoluteBounds="0.51499999999999968, 2.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 2.56814697265625); (3.5 : 2.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DbModelDataContext/Typs/Typs_Titels" />
+      <nodes>
+        <classShapeMoniker Id="f7377c1d-2aa1-41cb-aa83-13891d48dbd4" />
+        <classShapeMoniker Id="2154e5fe-fdd0-49de-8cb8-885701e4c482" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

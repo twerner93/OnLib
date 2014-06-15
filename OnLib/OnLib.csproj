@@ -183,6 +183,14 @@
     <Compile Include="Controllers\LeiheController.cs" />
     <Compile Include="Controllers\TitelController.cs" />
     <Compile Include="Controllers\TypController.cs" />
+    <Compile Include="DbModel.cs">
+      <DependentUpon>DbModel.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +210,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-OnLib.mdf" />
+    <Content Include="App_Data\aspnet-OnLib_log.ldf">
+      <DependentUpon>aspnet-OnLib.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -211,6 +223,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="DbModel.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DbModel.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\Datei.pubxml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
@@ -301,7 +318,6 @@
     <Content Include="Views\Titel\Rents.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\themes\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
@@ -311,6 +327,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DbModel.dbml.layout">
+      <DependentUpon>DbModel.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
