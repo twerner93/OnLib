@@ -21,6 +21,11 @@ namespace OnLib.Controllers
             for(int i = 0; i <5; i++){
                 neuste.Add(titels[i]);
             }
+            titels = _db.Titels.OrderBy(t => t.Created).ToList();
+            for (int i = 0; i < 5; i++)
+            {
+                beliebteste.Add(titels[i]);
+            }
             ViewBag.Neuste = neuste;
             ViewBag.Beliebteste = beliebteste;
             

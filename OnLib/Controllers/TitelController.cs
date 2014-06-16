@@ -527,5 +527,10 @@ namespace OnLib.Controllers
             }
             return null;                
         }
+
+        public List<Titel> FuenfBeliebteste()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
