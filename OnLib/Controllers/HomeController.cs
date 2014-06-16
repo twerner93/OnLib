@@ -18,13 +18,22 @@ namespace OnLib.Controllers
             List<Titel> titels = _db.Titels.OrderByDescending(t => t.Created).ToList();
             List<Titel> neuste = new List<Titel>();
             List<Titel> beliebteste = new List<Titel>();
-            for(int i = 0; i <5; i++){
-                neuste.Add(titels[i]);
+            if (titels != null && titels.Count > 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    titels[i].CoverPfad = new TitelController().getCoverPath(titels[i]);
+                    neuste.Add(titels[i]);
+                }
             }
             titels = _db.Titels.OrderBy(t => t.Created).ToList();
-            for (int i = 0; i < 5; i++)
+            if (titels != null && titels.Count > 5)
             {
-                beliebteste.Add(titels[i]);
+                for (int i = 0; i < 5; i++)
+                {
+                    titels[i].CoverPfad = new TitelController().getCoverPath(titels[i]);
+                    beliebteste.Add(titels[i]);
+                }
             }
             ViewBag.Neuste = neuste;
             ViewBag.Beliebteste = beliebteste;

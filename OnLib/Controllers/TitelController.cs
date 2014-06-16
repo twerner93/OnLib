@@ -519,11 +519,11 @@ namespace OnLib.Controllers
             return tvm;
         }
 
-        protected string getCoverPath(Titel titel)
+        public string getCoverPath(Titel titel)
         {
             if (titel.CoverPfad != null)
             {
-                return titel.CoverPfad.Replace('\\', '/');
+                return titel.CoverPfad.Replace('\\', '/').Substring(1);
             }
             return null;                
         }
