@@ -10,6 +10,7 @@ using OnLib.Models;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.SqlTypes;
 
 namespace OnLib.Controllers
 {
@@ -106,7 +107,7 @@ namespace OnLib.Controllers
             {
                 db.Entry(kopie).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/"+kopie.TitelId, "Titel");
             }
             ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
             return View(kopie);
@@ -153,9 +154,12 @@ namespace OnLib.Controllers
             {
                 Kopie = kopie,
                 KopieId = kopie.Id,
-                UserProfile = db.Users.Find(currentUserId)
+                UserProfile = db.Users.Find(currentUserId),
+                Ausgeliehen = SqlDateTime.MinValue.Value
             };
-            ViewBag.ForKopie = true;
+            ViewBag.ausgeliehen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            List<RueckgabeDatum> dauer = getDauerList();
+            ViewBag.rueckgabe = new SelectList(dauer, "Datum", "Bezeichner");
             return View(leihe);
         }
 
@@ -184,6 +188,25 @@ namespace OnLib.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private List<RueckgabeDatum> getDauerList()
+        {
+            List<RueckgabeDatum> dauer = new List<RueckgabeDatum>();
+            DateTime now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            dauer.Add(new RueckgabeDatum{Bezeichner = "1 Tag", Datum = now.AddDays(1)});
+            dauer.Add(new RueckgabeDatum{Bezeichner = "2 Tage", Datum = now.AddDays(2)});
+            dauer.Add(new RueckgabeDatum{Bezeichner = "3 Tage", Datum = now.AddDays(3)});
+            dauer.Add(new RueckgabeDatum{Bezeichner = "1 Woche", Datum = now.AddDays(7)});
+            dauer.Add(new RueckgabeDatum{Bezeichner = "2 Wochen", Datum = now.AddDays(14)});
+            dauer.Add(new RueckgabeDatum{Bezeichner = "1 Monat", Datum = now.AddMonths(1)});
+            return dauer;
+        }
+
+        class RueckgabeDatum
+        {
+            public string Bezeichner { get; set; }
+            public DateTime Datum { get; set; }
         }
     }
 }

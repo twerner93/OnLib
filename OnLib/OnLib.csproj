@@ -183,6 +183,14 @@
     <Compile Include="Controllers\LeiheController.cs" />
     <Compile Include="Controllers\TitelController.cs" />
     <Compile Include="Controllers\TypController.cs" />
+    <Compile Include="DbModel.cs">
+      <DependentUpon>DbModel.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DbModel.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,12 +210,23 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-OnLib.mdf" />
+    <Content Include="App_Data\aspnet-OnLib_log.ldf">
+      <DependentUpon>aspnet-OnLib.mdf</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="DbModel.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DbModel.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -216,6 +235,12 @@
     <None Include="Properties\PublishProfiles\Local IIS.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-1.9.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.map" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="images\titel\default.jpg" />
     <Content Include="Logo\Bib1.jpg" />
@@ -226,13 +251,6 @@
     <Content Include="Logo\LogoGrau.jpg" />
     <Content Include="Logo\LogoHell.jpg" />
     <Content Include="Logo\LogoKlein.jpg" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -301,8 +319,6 @@
     <Content Include="Views\Titel\Rents.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Content\themes\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +327,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DbModel.dbml.layout">
+      <DependentUpon>DbModel.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

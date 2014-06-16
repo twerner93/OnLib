@@ -14,7 +14,32 @@ namespace OnLib.Controllers
         public ActionResult Index()
         {
             var model = _db.Titels.ToList();
-            return View(model);
+
+            List<Titel> titels = _db.Titels.OrderByDescending(t => t.Created).ToList();
+            List<Titel> neuste = new List<Titel>();
+            List<Titel> beliebteste = new List<Titel>();
+            if (titels != null && titels.Count > 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    titels[i].CoverPfad = new TitelController().getCoverPath(titels[i]);
+                    neuste.Add(titels[i]);
+                }
+            }
+            titels = _db.Titels.OrderBy(t => t.Created).ToList();
+            if (titels != null && titels.Count > 5)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    titels[i].CoverPfad = new TitelController().getCoverPath(titels[i]);
+                    beliebteste.Add(titels[i]);
+                }
+            }
+            ViewBag.Neuste = neuste;
+            ViewBag.Beliebteste = beliebteste;
+            
+
+            return View();
         }
 
         public ActionResult About()

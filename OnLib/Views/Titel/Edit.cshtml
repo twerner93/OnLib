@@ -84,7 +84,7 @@
         
         @if (!string.IsNullOrEmpty(Model.CoverPfad))
         {
-            <img src="@Model.CoverPfad" height="100" />
+            <img src="~/@Model.CoverPfad" height="100" />
         }
 
         <div class="form-group">
@@ -97,7 +97,7 @@
     </div>
 }
 
-<form id="TitelCoverUploadForm" action="/Titel/UploadCover" method="post" name="TitelCoverUploadForm" enctype="multipart/form-data">
+<form id="TitelCoverUploadForm" action="~/Titel/UploadCover" method="post" name="TitelCoverUploadForm" enctype="multipart/form-data">
     <input id="TitelId" type="hidden" name="TitelId" value="@Model.TitelId" />
     <input id="Neu" type="hidden" name="Neu" value="false" />
     <input id="imgUploadCover" title="Titel-Cover hochladen" type="file" name="imgUploadCover" />

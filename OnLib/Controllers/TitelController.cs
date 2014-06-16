@@ -282,6 +282,7 @@ namespace OnLib.Controllers
                 Titel titel = db.Titels.Find(titelview.TitelId);
                 titel.Autor = autor;
                 titel.AutorId = autor.AutorId;
+                titel.Name = titelview.Name;
                 titel.Genre = genre;
                 titel.GenreId = genre.GenreId;
                 titel.Typ = typ;
@@ -354,7 +355,6 @@ namespace OnLib.Controllers
         [HttpPost]
         public ActionResult UploadCover(CoverUploadModel model)
         {
-            //throw new NotImplementedException();
             if (Request.Files.Count > 0)
             {
                 try
@@ -420,7 +420,7 @@ namespace OnLib.Controllers
         public ActionResult Rents()
         {
             var currentUserId = User.Identity.GetUserId();
-            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == currentUserId).ToList();
+            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == currentUserId && l.Zurueck == false).ToList();
             foreach (Leihe item in rents)
             {
                 item.Kopie = db.Kopies.Find(item.KopieId);
@@ -432,7 +432,10 @@ namespace OnLib.Controllers
         // GET: /Titel/Back
         public ActionResult Back(int id)
         {
-            throw new NotImplementedException();
+            Leihe rent = db.Leihes.Find(id);
+            rent.Zurueck = true;
+            db.SaveChanges();
+            return RedirectToAction("Rents");
         }
 
         // GET: /Titel/Exists
@@ -516,13 +519,18 @@ namespace OnLib.Controllers
             return tvm;
         }
 
-        protected string getCoverPath(Titel titel)
+        public string getCoverPath(Titel titel)
         {
             if (titel.CoverPfad != null)
             {
-                return titel.CoverPfad.Replace('\\', '/');
+                return titel.CoverPfad.Replace('\\', '/').Substring(1);
             }
             return null;                
+        }
+
+        public List<Titel> FuenfBeliebteste()
+        {
+            throw new NotImplementedException();
         }
     }
 }

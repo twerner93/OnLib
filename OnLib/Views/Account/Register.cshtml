@@ -52,13 +52,17 @@
     
     <div class="col-md-6">
         <div class="form-group">
-            @* TODO: Datepicker *@
             @Html.LabelFor(m => m.Geburtstag, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.EditorFor(m => m.Geburtstag, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Geburtstag, null, new { @class = "help-inline" })
             </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(m => m.Geburtstag, new { @class = "col-md-2 control-label"})
+        </div>*@
+                  
         <div class="form-group">
             @Html.LabelFor(m => m.Strasse, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">

@@ -59,11 +59,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Typ)
         </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>*@
+        <td>
+            @Html.ActionLink("Titelinfo bearbeiten", "Edit/"+item.TitelId, "Titel") |
+            @Html.ActionLink("Kopie bearbeiten", "Edit/"+item.KopieId, "Kopie")
+        </td>
     </tr>
 }
 

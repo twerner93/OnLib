@@ -7,7 +7,7 @@
 <h2>Medienübersicht</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Titel hinzufügen", "Create")
 </p>
 
 <table class="table">
@@ -49,7 +49,7 @@
                 }
                 else 
                 {
-                    <img src="@item.CoverPfad" height="20" />
+                    <img src="~/@item.CoverPfad" height="20" />
                 }
             }
         </td>
@@ -79,7 +79,7 @@
             @Html.DisplayFor(modelItem => item.Kopies.Count)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TitelId }) |
+            @Html.ActionLink("Bearbeiten", "Edit", new { id=item.TitelId }) |
             @Html.ActionLink("Details", "Details", new { id=item.TitelId })
         </td>
     </tr>

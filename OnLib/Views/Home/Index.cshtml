@@ -1,18 +1,103 @@
-﻿@model IEnumerable<OnLib.Models.Titel>
+﻿@*@model IEnumerable<OnLib.Models.Titel>*@
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-@foreach (var item in Model)
-{
-    <h4>@item.Name</h4>
-    if (!String.IsNullOrEmpty(item.Autor.Vorname))
-    {
-        <div>@item.Autor.Nachname, @item.Autor.Vorname</div>
-    }
-    else 
-    { 
-        <div>@item.Autor.Nachname</div>
-    }
+@{
+    List<OnLib.Models.Titel> neuste = ViewBag.Neuste;
+    List<OnLib.Models.Titel> beliebteste = ViewBag.Beliebteste;
 }
+
+@*@foreach (var item in Model)
+    {
+        <h4>@item.Name</h4>
+        if (!String.IsNullOrEmpty(item.Autor.Vorname))
+        {
+            <div>@item.Autor.Nachname, @item.Autor.Vorname</div>
+        }
+        else
+        {
+            <div>@item.Autor.Nachname</div>
+        }
+    }*@
+<div class="container w">
+    <div class="row centered">
+        <br><br>
+        <div class="col-lg-5">
+            <p style="font-size: 18pt; font-family:Arial">
+                <i class="glyphicon glyphicon-star">
+                    5 Neuste
+                </i>
+            </p>
+            <table border="0">
+                @foreach (var item in neuste) {
+                <tr>
+                    <td style="padding: 7px">
+                        <a href="~/Titel/Details/@item.TitelId">
+                            @{
+                            if (String.IsNullOrEmpty(item.CoverPfad))
+                            {
+                                <img src="~/images/titel/default.jpg" height="45" />
+                            }
+                            else
+                            {
+                                <img src="~/@item.CoverPfad" height="45" />
+                            }
+                            }
+                            </a>
+                    </td>
+
+                    <td style="padding: 7px">
+                        <i>
+                            @Html.DisplayFor(modelItem => item.Autor.Nachname)
+                            <br />
+                                @Html.DisplayFor(modelItem => item.Name)
+                        </i>
+                    </td>
+                </tr>
+                }
+            </table>
+        </div><!-- col-lg-4 -->
+        <div class="col-lg-5">
+            <p style="font-size: 18pt; font-family:Arial">
+                <i class="glyphicon glyphicon-star">
+                    5 Beliebteste
+                </i>
+            </p>
+            <table border="0">
+                @foreach (var item in beliebteste)
+                {
+                    <tr>
+                        <td style="padding: 7px">
+                            <a href="~/Titel/Details/@item.TitelId">
+                                @{
+
+                                if (String.IsNullOrEmpty(item.CoverPfad))
+                                {
+                                    <img src="~/images/titel/default.jpg" height="45" />
+                                }
+                                else
+                                {
+                                    <img src="~/@item.CoverPfad" height="45" />
+                                }
+
+                                }
+                            </a>
+                        </td>
+                        <td style="padding: 7px">
+                            <i>
+                                @Html.DisplayFor(modelItem => item.Autor.Nachname)
+                                <br />
+
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </i>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div><!-- col-lg-4 -->
+    </div><!-- row -->
+    <br>
+    <br>
+</div><!-- container -->
