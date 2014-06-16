@@ -107,7 +107,7 @@ namespace OnLib.Controllers
             {
                 db.Entry(kopie).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/"+kopie.TitelId, "Titel");
             }
             ViewBag.TitelId = new SelectList(db.Titels, "TitelId", "Name", kopie.TitelId);
             return View(kopie);
