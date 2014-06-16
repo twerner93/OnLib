@@ -282,6 +282,7 @@ namespace OnLib.Controllers
                 Titel titel = db.Titels.Find(titelview.TitelId);
                 titel.Autor = autor;
                 titel.AutorId = autor.AutorId;
+                titel.Name = titelview.Name;
                 titel.Genre = genre;
                 titel.GenreId = genre.GenreId;
                 titel.Typ = typ;

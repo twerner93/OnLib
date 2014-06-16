@@ -29,7 +29,8 @@
                 @foreach (var item in Model) {
                 <tr>
                     <td style="padding: 7px">
-                        @{
+                        <a href="~/Titel/Details/@item.TitelId">
+                            @{
                     if (String.IsNullOrEmpty(item.CoverPfad))
                     {
                         <img src="~/images/titel/default.jpg" height="45" />
@@ -38,15 +39,15 @@
                     {
                         <img src="@item.CoverPfad" height="45" />
                     }
-                        }
-                    </td>
+                            }
+                            </a>
+</td>
 
                     <td style="padding: 7px">
                         <i>
                             @Html.DisplayFor(modelItem => item.Autor.Nachname)
                             <br />
-
-                            @Html.DisplayFor(modelItem => item.Name)
+                                @Html.DisplayFor(modelItem => item.Name)
                         </i>
                     </td>
                 </tr>
@@ -64,7 +65,9 @@
                 {
                     <tr>
                         <td style="padding: 7px">
-                            @{
+                            <a href="~/Titel/Details/@item.TitelId">
+                                @{
+
                     if (String.IsNullOrEmpty(item.CoverPfad))
                     {
                         <img src="~/images/titel/default.jpg" height="45" />
@@ -73,8 +76,10 @@
                     {
                         <img src="@item.CoverPfad" height="45" />
                     }
-                            }
-                        </td>
+
+                                }
+                            </a>
+</td>
                         <td style="padding: 7px">
                             <i>
                                 @Html.DisplayFor(modelItem => item.Autor.Nachname)

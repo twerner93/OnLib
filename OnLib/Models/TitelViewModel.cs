@@ -15,6 +15,7 @@ namespace OnLib.Models
         public string AutorNachname { get; set; }
         public string AutorVorname { get; set; }
         public string GenreName { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Kurzbeschreibung { get; set; }
         public string Beschreibung { get; set; }
