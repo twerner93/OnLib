@@ -1,7 +1,12 @@
-﻿@model IEnumerable<OnLib.Models.Titel>
+﻿@*@model IEnumerable<OnLib.Models.Titel>*@
 
 @{
     ViewBag.Title = "Home Page";
+}
+
+@{
+    List<OnLib.Models.Titel> neuste = ViewBag.Neuste;
+    List<OnLib.Models.Titel> beliebteste = ViewBag.Beliebteste;
 }
 
 @*@foreach (var item in Model)
@@ -26,7 +31,7 @@
                 </i>
             </p>
             <table border="0">
-                @foreach (var item in Model) {
+                @foreach (var item in neuste) {
                 <tr>
                     <td style="padding: 7px">
                         <a href="~/Titel/Details/@item.TitelId">
@@ -41,7 +46,7 @@
                             }
                             }
                             </a>
-</td>
+                    </td>
 
                     <td style="padding: 7px">
                         <i>
@@ -61,7 +66,7 @@
                 </i>
             </p>
             <table border="0">
-                @foreach (var item in Model)
+                @foreach (var item in beliebteste)
                 {
                     <tr>
                         <td style="padding: 7px">
@@ -79,7 +84,7 @@
 
                                 }
                             </a>
-</td>
+                        </td>
                         <td style="padding: 7px">
                             <i>
                                 @Html.DisplayFor(modelItem => item.Autor.Nachname)
