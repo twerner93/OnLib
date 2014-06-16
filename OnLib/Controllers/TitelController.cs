@@ -354,7 +354,6 @@ namespace OnLib.Controllers
         [HttpPost]
         public ActionResult UploadCover(CoverUploadModel model)
         {
-            //throw new NotImplementedException();
             if (Request.Files.Count > 0)
             {
                 try
@@ -420,7 +419,7 @@ namespace OnLib.Controllers
         public ActionResult Rents()
         {
             var currentUserId = User.Identity.GetUserId();
-            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == currentUserId).ToList();
+            List<Leihe> rents = db.Leihes.Where(l => l.UserProfile.Id == currentUserId && l.Zurueck == false).ToList();
             foreach (Leihe item in rents)
             {
                 item.Kopie = db.Kopies.Find(item.KopieId);
@@ -432,7 +431,10 @@ namespace OnLib.Controllers
         // GET: /Titel/Back
         public ActionResult Back(int id)
         {
-            throw new NotImplementedException();
+            Leihe rent = db.Leihes.Find(id);
+            rent.Zurueck = true;
+            db.SaveChanges();
+            return RedirectToAction("Rents");
         }
 
         // GET: /Titel/Exists

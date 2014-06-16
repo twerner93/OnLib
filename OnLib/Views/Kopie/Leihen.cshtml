@@ -7,7 +7,7 @@
 <h2>Leihen</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -22,15 +22,15 @@
                 @Html.ValidationMessageFor(model => model.KopieId)*@
                 @*@Html.EditorFor(model => model.KopieId, Model.KopieId)*@
                 @{if (ViewBag.forKopie == false)
-                {
+                  {
                     @Html.DropDownList("KopieId", String.Empty)
                     @Html.ValidationMessageFor(model => model.KopieId)
-                }
-                else
-                {
+                  }
+                  else
+                  {
                     @Html.DisplayFor(model => model.Kopie.UserProfile.UserName)
                     @Html.HiddenFor(model => model.KopieId, Model.Kopie)
-                }
+                  }
                 }
             </div>
         </div>
@@ -38,15 +38,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ausgeliehen, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ausgeliehen)
-                @Html.ValidationMessageFor(model => model.Ausgeliehen)
+                @{DateTime ausgeliehen = ViewBag.Ausgeliehen;}
+                @{Model.Ausgeliehen = ausgeliehen;}
+                @Html.HiddenFor(model => model.Ausgeliehen, ausgeliehen)
+                @Model.Ausgeliehen.ToShortDateString()
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Rueckgabe, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rueckgabe)
+                @Html.DropDownList("Rueckgabe")
                 @Html.ValidationMessageFor(model => model.Rueckgabe)
             </div>
         </div>
